@@ -1,4 +1,4 @@
-import { Button, ButtonLink, buttonVariants } from './button/button';
+import { Button, ButtonLink, buttonVariants } from './button/Button';
 import { Container } from './container/container';
 import { Modal } from './modal/modal';
 import { YoutubeEmbed } from './youtube-embed/youtube-embed';
