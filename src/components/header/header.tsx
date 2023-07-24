@@ -84,11 +84,11 @@ function MobileNavigation() {
                     Contact
                   </Link>
                 </li>
-                <li className="border-t border-slate-300/40 pt-4">
+                {/* <li className="border-t border-slate-300/40 pt-4">
                   <Link href="/login" className="block w-full">
                     Sign in
                   </Link>
-                </li>
+                </li> */}
               </Popover.Panel>
             </Transition.Child>
           </Transition.Root>
@@ -100,7 +100,7 @@ function MobileNavigation() {
 
 export default function Header({ menuItems }: HeaderProps) {
   return (
-    <header className="py-10">
+    <header className="relative z-50 py-10">
       <div className="container">
         <nav className="relative z-50 text-sm">
           <ul className="flex items-center">
@@ -143,23 +143,23 @@ export default function Header({ menuItems }: HeaderProps) {
               </Link>
             </li>
             <li className="ml-auto hidden md:block">
-              <Link
+              {/* <Link
                 className={buttonVariants({ variant: 'outline', buttonColor: 'slate' })}
                 href="/login"
                 // onClick={() => signIn("auth0", { callbackUrl: "/" })}
                 // onClick={() => signIn('auth0', { callbackUrl: '/' }, { propmt: 'login' })}
               >
                 Sign in
-              </Link>
+              </Link> */}
             </li>
             <li className="ml-auto md:ml-8">
-              <Button
+              {/* <Button
                 className=""
                 buttonColor="blue"
                 // onClick={() => signIn('auth0', { callbackUrl: '/#features' }, { propmt: 'login' })}
               >
-                Get started<span className="hidden lg:inline"> today</span>
-              </Button>
+                Get started <span className="hidden whitespace-pre lg:inline"> today</span>
+              </Button> */}
             </li>
             <li className="-mr-1 ml-5 md:hidden">
               <MobileNavigation />

@@ -15,7 +15,7 @@ const Template: FaustTemplate<GetPostQuery> = (props) => {
   const { fullHead } = props.data.post.seo;
   const { post, primaryMenuItems } = props.data;
   const { nodes: menuItems } = primaryMenuItems;
-  const { content } = post;
+  const { content, title } = post;
 
   return (
     <>
@@ -23,7 +23,8 @@ const Template: FaustTemplate<GetPostQuery> = (props) => {
 
       <Header menuItems={menuItems} />
 
-      <main className="">
+      <main className="prose mx-auto my-36">
+        <h1 className="text-center text-blue-600">{title}</h1>
         <div dangerouslySetInnerHTML={{ __html: content }} />
       </main>
 

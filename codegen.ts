@@ -1,7 +1,7 @@
 import { CodegenConfig } from '@graphql-codegen/cli';
 
 const config: CodegenConfig = {
-  schema: 'https://openhousehl.wpengine.com/graphql',
+  schema: 'https://sls21.wpengine.com/graphql',
   documents: ['src/**/*.{tsx,ts}'],
   generates: {
     './src/__generated__/': {
