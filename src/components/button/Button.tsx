@@ -1,4 +1,5 @@
 import { type VariantProps, cva } from 'cva';
+import Link from 'next/link';
 import * as React from 'react';
 
 const buttonVariants = cva(
@@ -43,13 +44,18 @@ const buttonVariants = cva(
         variant: 'outline',
         buttonColor: 'slate',
         className:
-          'ring-1 text-sm focus:outline-none ring-slate-200 text-slate-700 hover:text-slate-900 hover:ring-slate-300 active:bg-slate-100 active:text-slate-600 focus-visible:outline-blue-600 focus-visible:ring-slate-300',
+          'ring-1 text-sm focus:outline-none ring-slate-200 bg-white text-slate-700 hover:text-slate-900 hover:ring-slate-300 active:bg-slate-100 active:text-slate-600 focus-visible:outline-blue-600 focus-visible:ring-slate-300',
       },
       {
         variant: 'outline',
         buttonColor: 'white',
         className:
           'ring-1 text-sm focus:outline-none ring-slate-700 text-white hover:ring-slate-500 active:ring-slate-700 active:text-slate-400 focus-visible:outline-white0',
+      },
+      {
+        variant: 'solid',
+        buttonColor: 'slate',
+        className: '',
       },
     ],
   }
@@ -72,4 +78,24 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 );
 Button.displayName = 'Button';
 
-export { Button, buttonVariants };
+export interface ButtonLinkProps
+  extends React.AnchorHTMLAttributes<HTMLAnchorElement>,
+    VariantProps<typeof buttonVariants> {
+  asChild?: boolean;
+}
+
+const ButtonLink = React.forwardRef<HTMLAnchorElement, ButtonLinkProps>(
+  ({ variant, buttonColor, href, className, ...props }, ref) => {
+    return (
+      <Link
+        href={href}
+        className={buttonVariants({ variant, buttonColor, className })}
+        ref={ref}
+        {...props}
+      ></Link>
+    );
+  }
+);
+ButtonLink.displayName = 'ButtonLink';
+
+export { Button, ButtonLink, buttonVariants };
