@@ -21,7 +21,7 @@ import backgroundImage from '@/images/background-features.jpg';
 import parse from 'html-react-parser';
 import Head from 'next/head';
 import Image from 'next/image';
-import clsx from 'clsx';
+import { cn } from '@/lib/utils';
 
 const Template: FaustTemplate<GetHomePageQuery> = (props) => {
   const [showVideoModal, setShowVideoModal] = useState(false);
@@ -184,7 +184,7 @@ const Template: FaustTemplate<GetHomePageQuery> = (props) => {
                       {introSection.featuredList.map((feature, featureIndex) => (
                         <div
                           key={feature.heading + featureIndex}
-                          className={clsx(
+                          className={cn(
                             'group relative rounded-full px-4 py-1 lg:rounded-l-xl lg:rounded-r-none lg:p-6',
                             {
                               'bg-white lg:bg-white/10 lg:ring-1 lg:ring-inset lg:ring-white/10':
@@ -196,7 +196,7 @@ const Template: FaustTemplate<GetHomePageQuery> = (props) => {
                         >
                           <h3>
                             <Tab
-                              className={clsx(
+                              className={cn(
                                 'font-display text-lg [&:not(:focus-visible)]:focus:outline-none',
                                 {
                                   'text-blue-600 lg:text-white': selectedIndex === featureIndex,
@@ -210,7 +210,7 @@ const Template: FaustTemplate<GetHomePageQuery> = (props) => {
                             </Tab>
                           </h3>
                           <p
-                            className={clsx('mt-2 hidden text-sm lg:block', {
+                            className={cn('mt-2 hidden text-sm lg:block', {
                               'text-white': selectedIndex === featureIndex,
                               'text-blue-100 group-hover:text-white':
                                 selectedIndex !== featureIndex,
