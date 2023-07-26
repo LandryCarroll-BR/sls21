@@ -19,7 +19,7 @@ import {
 
 import MailIcon from '@heroicons/react/24/outline/EnvelopeIcon';
 import backgroundImage from '@/images/background-features.jpg';
-import parse from 'html-react-parser';
+// import parse from 'html-react-parser';
 import Head from 'next/head';
 import Image from 'next/image';
 
@@ -85,7 +85,7 @@ const Template: FaustTemplate<GetHomePageQuery> = (props) => {
 
   return (
     <>
-      <Head>{parse(fullHead)}</Head>
+      <Head>{}</Head>
 
       <Header menuItems={menuItems} />
 
