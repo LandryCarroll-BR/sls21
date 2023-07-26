@@ -72,54 +72,54 @@ const Template: FaustTemplate<GetContactPageQuery> = (props) => {
 
   async function onFormSubmit(data: z.infer<typeof FormSchema>) {
     console.log(data);
-    // try {
-    //   let response = await mutateFunction({
-    //     variables: {
-    //       databaseId: 1,
-    //       fieldValues: [
-    //         {
-    //           id: 1,
-    //           nameValues: {
-    //             first: data.firstName,
-    //             last: data.lastName,
-    //           },
-    //         },
-    //         {
-    //           id: 3,
-    //           value: data.age,
-    //         },
-    //         {
-    //           id: 4,
-    //           value: data.occupation,
-    //         },
-    //         {
-    //           id: 5,
-    //           emailValues: {
-    //             value: data.emailAddress,
-    //           },
-    //         },
-    //         {
-    //           id: 6,
-    //           value: data.phoneNumber,
-    //         },
-    //         {
-    //           id: 10,
-    //           value: data.retirementStatus,
-    //         },
-    //         {
-    //           id: 11,
-    //           value: data.questions,
-    //         },
-    //       ],
-    //     },
-    //   });
+    try {
+      let response = await mutateFunction({
+        variables: {
+          databaseId: 1,
+          fieldValues: [
+            {
+              id: 1,
+              nameValues: {
+                first: data.firstName,
+                last: data.lastName,
+              },
+            },
+            {
+              id: 3,
+              value: data.age,
+            },
+            {
+              id: 4,
+              value: data.occupation,
+            },
+            {
+              id: 5,
+              emailValues: {
+                value: data.emailAddress,
+              },
+            },
+            {
+              id: 6,
+              value: data.phoneNumber,
+            },
+            {
+              id: 10,
+              value: data.retirementStatus,
+            },
+            {
+              id: 11,
+              value: data.questions,
+            },
+          ],
+        },
+      });
 
-    //   const confirmationMessage = response?.data?.submitGfForm?.confirmation?.message;
+      const confirmationMessage = response?.data?.submitGfForm?.confirmation?.message;
 
-    //   setConfirmationMessage(confirmationMessage);
-    // } catch (error) {
-    //   console.error(error);
-    // }
+      setConfirmationMessage(confirmationMessage);
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   // Listen for update to input state (used for conditional rendering)

@@ -65,7 +65,7 @@ function MobileNavigation({ menuItems }: HeaderProps) {
                 className="absolute inset-x-0 top-full mt-4 origin-top space-y-4 rounded-2xl bg-white p-6 text-lg tracking-tight text-slate-900 shadow-xl ring-1 ring-slate-900/5"
               >
                 {menuItems.map((item) => (
-                  <li>
+                  <li key={item.id}>
                     <Link href={item.uri} className="block w-full" onClick={() => close()}>
                       {item.label}
                     </Link>
@@ -93,7 +93,7 @@ export default function Header({ menuItems }: HeaderProps) {
               </Link>
             </li>
             {menuItems.map((item) => (
-              <li className="ml-12 hidden md:block">
+              <li key={item.id} className="ml-12 hidden md:block">
                 <Link
                   href={item.uri}
                   className="rounded-lg px-2 py-1 text-slate-700 hover:bg-slate-100 hover:text-slate-900"
