@@ -5,7 +5,6 @@ import { useEffect, useState } from 'react';
 import { Tab } from '@headlessui/react';
 import { cn } from '@/lib/utils';
 import { ArrowDownIcon, PhoneIcon } from '@heroicons/react/24/solid';
-import { motion } from 'framer-motion';
 
 import {
   Button,
@@ -104,7 +103,7 @@ const Template: FaustTemplate<GetHomePageQuery> = (props) => {
               {heroSection.body}
             </p>
 
-            <motion.div className="mt-10 flex justify-center space-x-6">
+            <div className="mt-10 flex justify-center space-x-6">
               <ButtonLink className="" href="mailto: john@sls21.com">
                 Schedule a call
               </ButtonLink>
@@ -126,7 +125,7 @@ const Template: FaustTemplate<GetHomePageQuery> = (props) => {
                   iframeClassName="w-full h-full rounded-xl"
                 />
               </Modal>
-            </motion.div>
+            </div>
           </Container>
 
           {/* <div className="absolute inset-0 z-20 h-full w-full bg-gradient-to-r from-blue-600 from-[25%]  to-blue-500 p-0"></div> */}

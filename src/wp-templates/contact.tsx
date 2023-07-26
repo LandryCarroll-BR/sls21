@@ -29,19 +29,19 @@ import Link from 'next/link';
 import { gql, useMutation } from '@apollo/client';
 import { useState } from 'react';
 
-const SUBMIT_FORM = gql`
-  mutation SubmitForm($databaseId: ID!, $fieldValues: [FormFieldValuesInput]!) {
-    submitGfForm(input: { id: $databaseId, fieldValues: $fieldValues }) {
-      confirmation {
-        message
-      }
-      errors {
-        id
-        message
-      }
-    }
-  }
-`;
+// const SUBMIT_FORM = gql`
+//   mutation SubmitForm($databaseId: ID!, $fieldValues: [FormFieldValuesInput]!) {
+//     submitGfForm(input: { id: $databaseId, fieldValues: $fieldValues }) {
+//       confirmation {
+//         message
+//       }
+//       errors {
+//         id
+//         message
+//       }
+//     }
+//   }
+// `;
 
 const FormSchema = z.object({
   firstName: z.string().max(30, 'Must be shorter than 30 characters'),
@@ -63,61 +63,62 @@ const FormSchema = z.object({
 const Template: FaustTemplate<GetContactPageQuery> = (props) => {
   const [confirmationMessage, setConfirmationMessage] = useState('');
 
-  const [mutateFunction, { data, loading, error }] = useMutation(SUBMIT_FORM);
+  // const [mutateFunction, { data, loading, error }] = useMutation(SUBMIT_FORM);
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
   });
 
   async function onFormSubmit(data: z.infer<typeof FormSchema>) {
-    try {
-      let response = await mutateFunction({
-        variables: {
-          databaseId: 1,
-          fieldValues: [
-            {
-              id: 1,
-              nameValues: {
-                first: data.firstName,
-                last: data.lastName,
-              },
-            },
-            {
-              id: 3,
-              value: data.age,
-            },
-            {
-              id: 4,
-              value: data.occupation,
-            },
-            {
-              id: 5,
-              emailValues: {
-                value: data.emailAddress,
-              },
-            },
-            {
-              id: 6,
-              value: data.phoneNumber,
-            },
-            {
-              id: 10,
-              value: data.retirementStatus,
-            },
-            {
-              id: 11,
-              value: data.questions,
-            },
-          ],
-        },
-      });
+    console.log(data);
+    // try {
+    //   let response = await mutateFunction({
+    //     variables: {
+    //       databaseId: 1,
+    //       fieldValues: [
+    //         {
+    //           id: 1,
+    //           nameValues: {
+    //             first: data.firstName,
+    //             last: data.lastName,
+    //           },
+    //         },
+    //         {
+    //           id: 3,
+    //           value: data.age,
+    //         },
+    //         {
+    //           id: 4,
+    //           value: data.occupation,
+    //         },
+    //         {
+    //           id: 5,
+    //           emailValues: {
+    //             value: data.emailAddress,
+    //           },
+    //         },
+    //         {
+    //           id: 6,
+    //           value: data.phoneNumber,
+    //         },
+    //         {
+    //           id: 10,
+    //           value: data.retirementStatus,
+    //         },
+    //         {
+    //           id: 11,
+    //           value: data.questions,
+    //         },
+    //       ],
+    //     },
+    //   });
 
-      const confirmationMessage = response?.data?.submitGfForm?.confirmation?.message;
+    //   const confirmationMessage = response?.data?.submitGfForm?.confirmation?.message;
 
-      setConfirmationMessage(confirmationMessage);
-    } catch (error) {
-      console.error(error);
-    }
+    //   setConfirmationMessage(confirmationMessage);
+    // } catch (error) {
+    //   console.error(error);
+    // }
   }
 
   // Listen for update to input state (used for conditional rendering)
@@ -340,7 +341,7 @@ const Template: FaustTemplate<GetContactPageQuery> = (props) => {
 
                     <Button type="submit" className="ml-auto">
                       Submit
-                      <motion.div
+                      {/* <motion.div
                         className="-mr-3 ml-3"
                         initial={{ opacity: 0, width: 0 }}
                         animate={{
@@ -349,7 +350,7 @@ const Template: FaustTemplate<GetContactPageQuery> = (props) => {
                         }}
                       >
                         <SvgSpinner />
-                      </motion.div>
+                      </motion.div> */}
                     </Button>
                   </div>
                 </form>
