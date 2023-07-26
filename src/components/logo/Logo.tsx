@@ -1,6 +1,7 @@
-function Logo(props: React.HtmlHTMLAttributes<HTMLOrSVGElement>) {
+function Logo({ className }: React.HtmlHTMLAttributes<HTMLOrSVGElement>) {
   return (
     <svg
+      className={className}
       id="Group_358"
       data-name="Group 358"
       xmlns="http://www.w3.org/2000/svg"

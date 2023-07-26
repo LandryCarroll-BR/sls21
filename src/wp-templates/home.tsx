@@ -11,6 +11,7 @@ import {
   Modal,
   YoutubeEmbed,
 } from '@/components';
+
 import { useEffect, useState } from 'react';
 import { Tab } from '@headlessui/react';
 
@@ -93,7 +94,7 @@ const Template: FaustTemplate<GetHomePageQuery> = (props) => {
         {/* Hero Section */}
         <section className="relative border-b-2 border-blue-100">
           <Container className="relative z-30 mx-auto pb-36 pt-28">
-            <h1 className="font-display mx-auto max-w-4xl justify-center text-center text-5xl font-medium tracking-tight text-white sm:text-7xl">
+            <h1 className="font-display mx-auto max-w-4xl justify-center text-center text-5xl font-medium tracking-tight sm:text-7xl">
               {heroSection.headingRepeater.map((content, index) => (
                 <HeroHeading key={index} isAccented={content.isAccented} text={content.text} />
               ))}

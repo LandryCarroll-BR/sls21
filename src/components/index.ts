@@ -4,6 +4,7 @@ import { Input } from './input/input';
 import { Label } from './label/label';
 import { Modal } from './modal/modal';
 import { RadioGroup, RadioGroupItem } from './radio-group/radio-group';
+import { SvgSpinner } from './svg-spinner/svg-spinner';
 import { Textarea } from './textarea/textarea';
 import { YoutubeEmbed } from './youtube-embed/youtube-embed';
 
@@ -44,6 +45,7 @@ export {
   Modal,
   RadioGroup,
   RadioGroupItem,
+  SvgSpinner,
   Textarea,
   useFormField,
   YoutubeEmbed,

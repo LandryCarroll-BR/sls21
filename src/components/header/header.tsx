@@ -80,7 +80,11 @@ function MobileNavigation() {
                   </Link>
                 </li>
                 <li>
-                  <Link href="#contact" className="block w-full" onClick={() => close()}>
+                  <Link
+                    href="http://sls21.com/contact"
+                    className="block w-full"
+                    onClick={() => close()}
+                  >
                     Contact
                   </Link>
                 </li>
