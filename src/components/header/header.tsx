@@ -140,7 +140,7 @@ export default function Header({ menuItems }: HeaderProps) {
             </li>
             <li className="ml-6 hidden md:block">
               <Link
-                href="#contact"
+                href="https://sls21.com/contact"
                 className="rounded-lg px-2 py-1 text-slate-700 hover:bg-slate-100 hover:text-slate-900"
               >
                 Contact
