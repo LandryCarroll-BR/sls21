@@ -1,6 +1,12 @@
 import { gql } from '@/__generated__';
 import { GetHomePageQuery } from '@/__generated__/graphql';
 import { FaustTemplate } from '@faustwp/core';
+import { useEffect, useState } from 'react';
+import { Tab } from '@headlessui/react';
+import { cn } from '@/lib/utils';
+import { ArrowDownIcon, PhoneIcon } from '@heroicons/react/24/solid';
+import { motion } from 'framer-motion';
+
 import {
   Button,
   ButtonLink,
@@ -12,17 +18,11 @@ import {
   YoutubeEmbed,
 } from '@/components';
 
-import { useEffect, useState } from 'react';
-import { Tab } from '@headlessui/react';
-
-import ArrowDownIcon from '@heroicons/react/24/solid/ArrowDownIcon';
-import PhoneIcon from '@heroicons/react/24/solid/PhoneIcon';
 import MailIcon from '@heroicons/react/24/outline/EnvelopeIcon';
 import backgroundImage from '@/images/background-features.jpg';
 import parse from 'html-react-parser';
 import Head from 'next/head';
 import Image from 'next/image';
-import { cn } from '@/lib/utils';
 
 const Template: FaustTemplate<GetHomePageQuery> = (props) => {
   const [showVideoModal, setShowVideoModal] = useState(false);
@@ -104,7 +104,7 @@ const Template: FaustTemplate<GetHomePageQuery> = (props) => {
               {heroSection.body}
             </p>
 
-            <div className="mt-10 flex justify-center space-x-6">
+            <motion.div className="mt-10 flex justify-center space-x-6">
               <ButtonLink className="" href="mailto: john@sls21.com">
                 Schedule a call
               </ButtonLink>
@@ -126,7 +126,7 @@ const Template: FaustTemplate<GetHomePageQuery> = (props) => {
                   iframeClassName="w-full h-full rounded-xl"
                 />
               </Modal>
-            </div>
+            </motion.div>
           </Container>
 
           {/* <div className="absolute inset-0 z-20 h-full w-full bg-gradient-to-r from-blue-600 from-[25%]  to-blue-500 p-0"></div> */}
