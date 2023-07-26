@@ -2,7 +2,7 @@ import { gql } from '../../__generated__';
 import { PrimaryMenuItemFragmentFragment } from '../../__generated__/graphql';
 import { Button, buttonVariants, Logo } from '@/components';
 import { Popover, Transition } from '@headlessui/react';
-import clsx from 'clsx';
+import { cn } from '@/lib/utils';
 
 import Link from 'next/link';
 import { Fragment } from 'react';
@@ -27,13 +27,13 @@ function MobileNavigation() {
             >
               <path
                 d="M0 1H14M0 7H14M0 13H14"
-                className={clsx('origin-center transition', {
+                className={cn('origin-center transition', {
                   'scale-90 opacity-0': open,
                 })}
               />
               <path
                 d="M2 2L12 12M12 2L2 12"
-                className={clsx('origin-center transition', {
+                className={cn('origin-center transition', {
                   'scale-90 opacity-0': !open,
                 })}
               />
@@ -80,7 +80,11 @@ function MobileNavigation() {
                   </Link>
                 </li>
                 <li>
-                  <Link href="#contact" className="block w-full" onClick={() => close()}>
+                  <Link
+                    href="http://sls21.com/contact"
+                    className="block w-full"
+                    onClick={() => close()}
+                  >
                     Contact
                   </Link>
                 </li>
