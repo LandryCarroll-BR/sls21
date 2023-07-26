@@ -260,7 +260,7 @@ const Template: FaustTemplate<GetContactPageQuery> = (props) => {
                       name="retirementStatus"
                       render={({ field }) => (
                         <FormItem className="space-y-3">
-                          <FormLabel>What's your retirement status?</FormLabel>
+                          <FormLabel>What&apos;s your retirement status?</FormLabel>
                           <FormControl>
                             <RadioGroup
                               onValueChange={field.onChange}
@@ -272,7 +272,7 @@ const Template: FaustTemplate<GetContactPageQuery> = (props) => {
                                   <RadioGroupItem value="planning-to-retire" />
                                 </FormControl>
                                 <FormLabel className="font-normal">
-                                  I'm preparing to retire
+                                  I&apos;m preparing to retire
                                 </FormLabel>
                               </FormItem>
 
@@ -280,7 +280,9 @@ const Template: FaustTemplate<GetContactPageQuery> = (props) => {
                                 <FormControl>
                                   <RadioGroupItem value="already-retired" />
                                 </FormControl>
-                                <FormLabel className="font-normal">I'm already retired</FormLabel>
+                                <FormLabel className="font-normal">
+                                  I&apos;m already retired
+                                </FormLabel>
                               </FormItem>
                             </RadioGroup>
                           </FormControl>
