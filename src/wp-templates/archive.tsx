@@ -5,7 +5,6 @@ import { FaustTemplate } from '@faustwp/core';
 
 import Link from 'next/link';
 import Head from 'next/head';
-import parse from 'html-react-parser';
 
 const Template: FaustTemplate<GetArchiveQuery> = (props) => {
   // Loading state for previews
@@ -26,7 +25,7 @@ const Template: FaustTemplate<GetArchiveQuery> = (props) => {
 
   return (
     <>
-      <Head>{parse(fullHead)}</Head>
+      <Head>{}</Head>
 
       <Header menuItems={menuItems} />
 

@@ -1,4 +1,5 @@
 import { Button, ButtonLink, buttonVariants } from './button/Button';
+import { Circle } from './icons/icons';
 import { Container } from './container/container';
 import { Input } from './input/input';
 import { Label } from './label/label';
@@ -28,6 +29,7 @@ export {
   Button,
   ButtonLink,
   buttonVariants,
+  Circle,
   Container,
   FeaturedPostCard,
   Form,

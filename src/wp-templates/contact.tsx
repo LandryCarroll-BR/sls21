@@ -23,7 +23,6 @@ import {
 
 import backgroundImage from '@/images/background-features.jpg';
 import Head from 'next/head';
-import parse from 'html-react-parser';
 import Image from 'next/image';
 import Link from 'next/link';
 import { gql } from '@/__generated__';
@@ -136,7 +135,7 @@ const Template: FaustTemplate<GetContactPageQuery> = (props) => {
 
   return (
     <>
-      <Head>{parse(fullHead)}</Head>
+      <Head>{}</Head>
 
       <div className="relative flex min-h-screen justify-center md:px-12 lg:px-0">
         <div className="relative z-10 flex flex-1 flex-col bg-white px-4 py-10 md:flex-none md:px-28 lg:justify-center">

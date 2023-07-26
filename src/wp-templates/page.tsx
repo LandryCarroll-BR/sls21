@@ -3,7 +3,6 @@ import { GetPageQuery } from '@/__generated__/graphql';
 import { FaustTemplate } from '@faustwp/core';
 import { Footer, Header } from '@/components';
 
-// import parse from 'html-react-parser';
 import Head from 'next/head';
 
 const Template: FaustTemplate<GetPageQuery> = (props) => {

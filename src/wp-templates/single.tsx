@@ -3,7 +3,6 @@ import { GetPostQuery } from '@/__generated__/graphql';
 import { FaustTemplate } from '@faustwp/core';
 import { Header, Footer } from '@/components';
 
-import parse from 'html-react-parser';
 import Head from 'next/head';
 
 const Template: FaustTemplate<GetPostQuery> = (props) => {
@@ -19,7 +18,7 @@ const Template: FaustTemplate<GetPostQuery> = (props) => {
 
   return (
     <>
-      <Head>{parse(fullHead)}</Head>
+      <Head>{}</Head>
 
       <Header menuItems={menuItems} />
 
