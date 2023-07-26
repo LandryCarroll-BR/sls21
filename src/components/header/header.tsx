@@ -1,6 +1,6 @@
 import { gql } from '../../__generated__';
 import { PrimaryMenuItemFragmentFragment } from '../../__generated__/graphql';
-import { Button, buttonVariants, Logo } from '@/components';
+import { Logo } from '@/components';
 import { Popover, Transition } from '@headlessui/react';
 import { cn } from '@/lib/utils';
 
@@ -11,10 +11,10 @@ type HeaderProps = {
   menuItems: PrimaryMenuItemFragmentFragment[];
 };
 
-function MobileNavigation() {
+function MobileNavigation({ menuItems }: HeaderProps) {
   return (
     <Popover>
-      {({ open, close }: any) => (
+      {({ open, close }) => (
         <>
           <Popover.Button className="relative z-10 flex h-8 w-8 items-center justify-center [&:not(:focus-visible)]:focus:outline-none">
             <span className="sr-only">Toggle Navigation</span>
@@ -64,35 +64,13 @@ function MobileNavigation() {
                 as="ul"
                 className="absolute inset-x-0 top-full mt-4 origin-top space-y-4 rounded-2xl bg-white p-6 text-lg tracking-tight text-slate-900 shadow-xl ring-1 ring-slate-900/5"
               >
-                <li>
-                  <Link href="#features" className="block w-full" onClick={() => close()}>
-                    Features
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#testimonials" className="block w-full" onClick={() => close()}>
-                    Testimonials
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#blog" className="block w-full" onClick={() => close()}>
-                    Blog
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="http://sls21.com/contact"
-                    className="block w-full"
-                    onClick={() => close()}
-                  >
-                    Contact
-                  </Link>
-                </li>
-                {/* <li className="border-t border-slate-300/40 pt-4">
-                  <Link href="/login" className="block w-full">
-                    Sign in
-                  </Link>
-                </li> */}
+                {menuItems.map((item) => (
+                  <li>
+                    <Link href={item.uri} className="block w-full" onClick={() => close()}>
+                      {item.label}
+                    </Link>
+                  </li>
+                ))}
               </Popover.Panel>
             </Transition.Child>
           </Transition.Root>
@@ -114,59 +92,18 @@ export default function Header({ menuItems }: HeaderProps) {
                 <Logo className="h-10 w-auto" />
               </Link>
             </li>
-            <li className="ml-12 hidden md:block">
-              <Link
-                href="#features"
-                className="rounded-lg px-2 py-1 text-slate-700 hover:bg-slate-100 hover:text-slate-900"
-              >
-                Features
-              </Link>
-            </li>
-            <li className="ml-6 hidden md:block">
-              <Link
-                href="#testimonials"
-                className="rounded-lg px-2 py-1 text-slate-700 hover:bg-slate-100 hover:text-slate-900"
-              >
-                Testimonials
-              </Link>
-            </li>
-            <li className="ml-6 hidden md:block">
-              <Link
-                href="#blog"
-                className="rounded-lg px-2 py-1 text-slate-700 hover:bg-slate-100 hover:text-slate-900"
-              >
-                Blog
-              </Link>
-            </li>
-            <li className="ml-6 hidden md:block">
-              <Link
-                href="https://sls21.com/contact"
-                className="rounded-lg px-2 py-1 text-slate-700 hover:bg-slate-100 hover:text-slate-900"
-              >
-                Contact
-              </Link>
-            </li>
-            <li className="ml-auto hidden md:block">
-              {/* <Link
-                className={buttonVariants({ variant: 'outline', buttonColor: 'slate' })}
-                href="/login"
-                // onClick={() => signIn("auth0", { callbackUrl: "/" })}
-                // onClick={() => signIn('auth0', { callbackUrl: '/' }, { propmt: 'login' })}
-              >
-                Sign in
-              </Link> */}
-            </li>
-            <li className="ml-auto md:ml-8">
-              {/* <Button
-                className=""
-                buttonColor="blue"
-                // onClick={() => signIn('auth0', { callbackUrl: '/#features' }, { propmt: 'login' })}
-              >
-                Get started <span className="hidden whitespace-pre lg:inline"> today</span>
-              </Button> */}
-            </li>
+            {menuItems.map((item) => (
+              <li className="ml-12 hidden md:block">
+                <Link
+                  href={item.uri}
+                  className="rounded-lg px-2 py-1 text-slate-700 hover:bg-slate-100 hover:text-slate-900"
+                >
+                  {item.label}
+                </Link>
+              </li>
+            ))}
             <li className="-mr-1 ml-5 md:hidden">
-              <MobileNavigation />
+              <MobileNavigation menuItems={menuItems} />
             </li>
           </ul>
         </nav>
