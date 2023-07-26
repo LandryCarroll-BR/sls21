@@ -23,107 +23,107 @@ import {
 
 import backgroundImage from '@/images/background-features.jpg';
 import Head from 'next/head';
-// import parse from 'html-react-parser';
+import parse from 'html-react-parser';
 import Image from 'next/image';
 import Link from 'next/link';
 import { gql } from '@/__generated__';
-// import { gql, useMutation } from '@apollo/client';
-// import { useState } from 'react';
+import { gql as apolloGql, useMutation } from '@apollo/client';
+import { useState } from 'react';
 
-// const SUBMIT_FORM = gql`
-//   mutation SubmitForm($databaseId: ID!, $fieldValues: [FormFieldValuesInput]!) {
-//     submitGfForm(input: { id: $databaseId, fieldValues: $fieldValues }) {
-//       confirmation {
-//         message
-//       }
-//       errors {
-//         id
-//         message
-//       }
-//     }
-//   }
-// `;
+const SUBMIT_FORM = apolloGql`
+  mutation SubmitForm($databaseId: ID!, $fieldValues: [FormFieldValuesInput]!) {
+    submitGfForm(input: { id: $databaseId, fieldValues: $fieldValues }) {
+      confirmation {
+        message
+      }
+      errors {
+        id
+        message
+      }
+    }
+  }
+`;
 
-// const FormSchema = z.object({
-//   firstName: z.string().max(30, 'Must be shorter than 30 characters'),
-//   lastName: z.string().max(30, 'Must be shorter than 30 characters'),
-//   age: z.string().max(3, 'Invalid age'),
-//   emailAddress: z
-//     .string()
-//     .min(1, { message: 'This field has to be filled.' })
-//     .email('This is not a valid email.'),
-//   phoneNumber: z
-//     .string()
-//     .regex(/^([+]?[\s0-9]+)?(\d{3}|[(]?[0-9]+[)])?([-]?[\s]?[0-9])+$/, 'Invalid number'),
-//   occupation: z.string().max(40, 'Must be shorter than 40 characterss'),
-//   retirementStatus: z.string().max(30, 'Must be shorter than 30 characters'),
-//   yearsToRetirement: z.string().max(3, 'Invalid age'),
-//   questions: z.string().max(120, 'Must be shorter than 120 characters'),
-// });
+const FormSchema = z.object({
+  firstName: z.string().max(30, 'Must be shorter than 30 characters'),
+  lastName: z.string().max(30, 'Must be shorter than 30 characters'),
+  age: z.string().max(3, 'Invalid age'),
+  emailAddress: z
+    .string()
+    .min(1, { message: 'This field has to be filled.' })
+    .email('This is not a valid email.'),
+  phoneNumber: z
+    .string()
+    .regex(/^([+]?[\s0-9]+)?(\d{3}|[(]?[0-9]+[)])?([-]?[\s]?[0-9])+$/, 'Invalid number'),
+  occupation: z.string().max(40, 'Must be shorter than 40 characterss'),
+  retirementStatus: z.string().max(30, 'Must be shorter than 30 characters'),
+  yearsToRetirement: z.string().max(3, 'Invalid age'),
+  questions: z.string().max(120, 'Must be shorter than 120 characters'),
+});
 
 const Template: FaustTemplate<GetContactPageQuery> = (props) => {
-  // const [confirmationMessage, setConfirmationMessage] = useState('');
+  const [confirmationMessage, setConfirmationMessage] = useState('');
 
-  // const [mutateFunction, { data, loading, error }] = useMutation(SUBMIT_FORM);
+  const [mutateFunction, { data, loading, error }] = useMutation(SUBMIT_FORM);
 
-  // const form = useForm<z.infer<typeof FormSchema>>({
-  //   resolver: zodResolver(FormSchema),
-  // });
+  const form = useForm<z.infer<typeof FormSchema>>({
+    resolver: zodResolver(FormSchema),
+  });
 
-  // async function onFormSubmit(data: z.infer<typeof FormSchema>) {
-  //   console.log(data);
-  //   // try {
-  //   //   let response = await mutateFunction({
-  //   //     variables: {
-  //   //       databaseId: 1,
-  //   //       fieldValues: [
-  //   //         {
-  //   //           id: 1,
-  //   //           nameValues: {
-  //   //             first: data.firstName,
-  //   //             last: data.lastName,
-  //   //           },
-  //   //         },
-  //   //         {
-  //   //           id: 3,
-  //   //           value: data.age,
-  //   //         },
-  //   //         {
-  //   //           id: 4,
-  //   //           value: data.occupation,
-  //   //         },
-  //   //         {
-  //   //           id: 5,
-  //   //           emailValues: {
-  //   //             value: data.emailAddress,
-  //   //           },
-  //   //         },
-  //   //         {
-  //   //           id: 6,
-  //   //           value: data.phoneNumber,
-  //   //         },
-  //   //         {
-  //   //           id: 10,
-  //   //           value: data.retirementStatus,
-  //   //         },
-  //   //         {
-  //   //           id: 11,
-  //   //           value: data.questions,
-  //   //         },
-  //   //       ],
-  //   //     },
-  //   //   });
+  async function onFormSubmit(data: z.infer<typeof FormSchema>) {
+    console.log(data);
+    // try {
+    //   let response = await mutateFunction({
+    //     variables: {
+    //       databaseId: 1,
+    //       fieldValues: [
+    //         {
+    //           id: 1,
+    //           nameValues: {
+    //             first: data.firstName,
+    //             last: data.lastName,
+    //           },
+    //         },
+    //         {
+    //           id: 3,
+    //           value: data.age,
+    //         },
+    //         {
+    //           id: 4,
+    //           value: data.occupation,
+    //         },
+    //         {
+    //           id: 5,
+    //           emailValues: {
+    //             value: data.emailAddress,
+    //           },
+    //         },
+    //         {
+    //           id: 6,
+    //           value: data.phoneNumber,
+    //         },
+    //         {
+    //           id: 10,
+    //           value: data.retirementStatus,
+    //         },
+    //         {
+    //           id: 11,
+    //           value: data.questions,
+    //         },
+    //       ],
+    //     },
+    //   });
 
-  //   //   const confirmationMessage = response?.data?.submitGfForm?.confirmation?.message;
+    //   const confirmationMessage = response?.data?.submitGfForm?.confirmation?.message;
 
-  //   //   setConfirmationMessage(confirmationMessage);
-  //   // } catch (error) {
-  //   //   console.error(error);
-  //   // }
-  // }
+    //   setConfirmationMessage(confirmationMessage);
+    // } catch (error) {
+    //   console.error(error);
+    // }
+  }
 
   // Listen for update to input state (used for conditional rendering)
-  // const retirementStatus = form.watch('retirementStatus');
+  const retirementStatus = form.watch('retirementStatus');
 
   // Loading state for previews
   if (props.loading) {
@@ -131,15 +131,15 @@ const Template: FaustTemplate<GetContactPageQuery> = (props) => {
   }
 
   // Data from CMS
-  // const { fullHead } = props.data.page.seo;
-  // const { heroSection } = props.data.page.contact;
+  const { fullHead } = props.data.page.seo;
+  const { heroSection } = props.data.page.contact;
 
   return (
     <>
-      <Head>{}</Head>
+      <Head>{parse(fullHead)}</Head>
 
       <div className="relative flex min-h-screen justify-center md:px-12 lg:px-0">
-        {/* <div className="relative z-10 flex flex-1 flex-col bg-white px-4 py-10 md:flex-none md:px-28 lg:justify-center">
+        <div className="relative z-10 flex flex-1 flex-col bg-white px-4 py-10 md:flex-none md:px-28 lg:justify-center">
           <main className="mx-auto w-full max-w-md sm:px-4 md:w-96 md:max-w-sm md:px-0">
             <div className="flex">
               <Link href="/" aria-label="Home">
@@ -367,7 +367,7 @@ const Template: FaustTemplate<GetContactPageQuery> = (props) => {
             alt=""
             unoptimized
           />
-        </div> */}
+        </div>
       </div>
     </>
   );
