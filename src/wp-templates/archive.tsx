@@ -1,5 +1,5 @@
 import { gql } from '@/__generated__';
-import { Header, Footer } from '@/components';
+import { Header, Footer, RawHtml } from '@/components';
 import { GetArchiveQuery } from '@/__generated__/graphql';
 import { FaustTemplate } from '@faustwp/core';
 
@@ -25,7 +25,9 @@ const Template: FaustTemplate<GetArchiveQuery> = (props) => {
 
   return (
     <>
-      <Head>{}</Head>
+      <Head>
+        <RawHtml html={fullHead} />
+      </Head>
 
       <Header menuItems={menuItems} />
 

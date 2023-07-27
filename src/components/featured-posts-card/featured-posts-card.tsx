@@ -3,7 +3,7 @@ import Link from 'next/link';
 import React from 'react';
 
 type Post = {
-  __typename?: 'Post' | 'MediaItem' | 'Page';
+  __typename?: 'GraphqlDocument' | 'Post' | 'MediaItem' | 'Page';
   title?: string | null;
   excerpt?: string | null;
   date?: string | null;

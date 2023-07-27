@@ -2373,6 +2373,8 @@ export enum ContentTypeEnum {
   /** The Type of Content object */
   Attachment = 'ATTACHMENT',
   /** The Type of Content object */
+  GraphqlDocument = 'GRAPHQL_DOCUMENT',
+  /** The Type of Content object */
   Page = 'PAGE',
   /** The Type of Content object */
   Post = 'POST'
@@ -2574,6 +2576,43 @@ export type CreateCommentPayload = {
   comment?: Maybe<Comment>;
   /** Whether the mutation succeeded. If the comment is not approved, the server will not return the comment to a non authenticated user, but a success message can be returned if the create succeeded, and the client can optimistically add the comment to the client cache */
   success?: Maybe<Scalars['Boolean']>;
+};
+
+/** Input for the createGraphqlDocument mutation. */
+export type CreateGraphqlDocumentInput = {
+  /** Alias names for saved GraphQL query documents */
+  alias?: InputMaybe<Array<Scalars['String']>>;
+  /** This is an ID that can be passed to a mutation by the client to track the progress of mutations and catch possible duplicate mutation submissions. */
+  clientMutationId?: InputMaybe<Scalars['String']>;
+  /** The content of the object */
+  content?: InputMaybe<Scalars['String']>;
+  /** The date of the object. Preferable to enter as year/month/day (e.g. 01/31/2017) as it will rearrange date as fit if it is not specified. Incomplete dates may have unintended results for example, "2017" as the input will use current date with timestamp 20:17  */
+  date?: InputMaybe<Scalars['String']>;
+  /** Description for the saved GraphQL document */
+  description?: InputMaybe<Scalars['String']>;
+  /** Allow, deny or default access grant for specific query */
+  grant?: InputMaybe<Scalars['String']>;
+  /** HTTP Cache-Control max-age directive for a saved GraphQL document */
+  maxAgeHeader?: InputMaybe<Scalars['Int']>;
+  /** A field used for ordering posts. This is typically used with nav menu items or for special ordering of hierarchical content types. */
+  menuOrder?: InputMaybe<Scalars['Int']>;
+  /** The password used to protect the content of the object */
+  password?: InputMaybe<Scalars['String']>;
+  /** The slug of the object */
+  slug?: InputMaybe<Scalars['String']>;
+  /** The status of the object */
+  status?: InputMaybe<PostStatusEnum>;
+  /** The title of the object */
+  title?: InputMaybe<Scalars['String']>;
+};
+
+/** The payload for the createGraphqlDocument mutation. */
+export type CreateGraphqlDocumentPayload = {
+  __typename?: 'CreateGraphqlDocumentPayload';
+  /** If a &#039;clientMutationId&#039; input is provided to the mutation, it will be returned as output on the mutation. This ID can be used by the client to track the progress of mutations and catch possible duplicate mutation submissions. */
+  clientMutationId?: Maybe<Scalars['String']>;
+  /** The Post object mutation type. */
+  graphqlDocument?: Maybe<GraphqlDocument>;
 };
 
 /** Input for the createMediaItem mutation. */
@@ -3044,6 +3083,29 @@ export type DeleteGfEntryPayload = {
   deletedId?: Maybe<Scalars['ID']>;
   /** The entry object before it was deleted. */
   entry?: Maybe<GfSubmittedEntry>;
+};
+
+/** Input for the deleteGraphqlDocument mutation. */
+export type DeleteGraphqlDocumentInput = {
+  /** This is an ID that can be passed to a mutation by the client to track the progress of mutations and catch possible duplicate mutation submissions. */
+  clientMutationId?: InputMaybe<Scalars['String']>;
+  /** Whether the object should be force deleted instead of being moved to the trash */
+  forceDelete?: InputMaybe<Scalars['Boolean']>;
+  /** The ID of the graphqlDocument to delete */
+  id: Scalars['ID'];
+  /** Override the edit lock when another user is editing the post */
+  ignoreEditLock?: InputMaybe<Scalars['Boolean']>;
+};
+
+/** The payload for the deleteGraphqlDocument mutation. */
+export type DeleteGraphqlDocumentPayload = {
+  __typename?: 'DeleteGraphqlDocumentPayload';
+  /** If a &#039;clientMutationId&#039; input is provided to the mutation, it will be returned as output on the mutation. This ID can be used by the client to track the progress of mutations and catch possible duplicate mutation submissions. */
+  clientMutationId?: Maybe<Scalars['String']>;
+  /** The ID of the deleted object */
+  deletedId?: Maybe<Scalars['ID']>;
+  /** The object before it was deleted */
+  graphqlDocument?: Maybe<GraphqlDocument>;
 };
 
 /** Input for the deleteMediaItem mutation. */
@@ -5667,6 +5729,176 @@ export enum GlobalStylesheetTypesEnum {
   Variables = 'VARIABLES'
 }
 
+/** The graphqlDocument type */
+export type GraphqlDocument = ContentNode & DatabaseIdentifier & Node & NodeWithContentEditor & NodeWithTemplate & NodeWithTitle & UniformResourceIdentifiable & {
+  __typename?: 'GraphqlDocument';
+  /** Alias names for saved GraphQL query documents */
+  alias?: Maybe<Array<Scalars['String']>>;
+  /** @deprecated Deprecated in favor of using Next.js pages */
+  conditionalTags?: Maybe<ConditionalTags>;
+  /** The content of the post. */
+  content?: Maybe<Scalars['String']>;
+  /** Connection between the ContentNode type and the ContentType type */
+  contentType?: Maybe<ContentNodeToContentTypeConnectionEdge>;
+  /** The name of the Content Type the node belongs to */
+  contentTypeName: Scalars['String'];
+  /** The unique identifier stored in the database */
+  databaseId: Scalars['Int'];
+  /** Post publishing date. */
+  date?: Maybe<Scalars['String']>;
+  /** The publishing date set in GMT. */
+  dateGmt?: Maybe<Scalars['String']>;
+  /** Description for the saved GraphQL document */
+  description?: Maybe<Scalars['String']>;
+  /** The desired slug of the post */
+  desiredSlug?: Maybe<Scalars['String']>;
+  /** If a user has edited the node within the past 15 seconds, this will return the user that last edited. Null if the edit lock doesn&#039;t exist or is greater than 15 seconds */
+  editingLockedBy?: Maybe<ContentNodeToEditLockConnectionEdge>;
+  /** The RSS enclosure for the object */
+  enclosure?: Maybe<Scalars['String']>;
+  /** Connection between the ContentNode type and the EnqueuedScript type */
+  enqueuedScripts?: Maybe<ContentNodeToEnqueuedScriptConnection>;
+  /** Connection between the ContentNode type and the EnqueuedStylesheet type */
+  enqueuedStylesheets?: Maybe<ContentNodeToEnqueuedStylesheetConnection>;
+  /** Allow, deny or default access grant for specific query */
+  grant?: Maybe<Scalars['String']>;
+  /**
+   * The id field matches the WP_Post-&gt;ID field.
+   * @deprecated Deprecated in favor of the databaseId field
+   */
+  graphqlDocumentId: Scalars['Int'];
+  /** The global unique identifier for this post. This currently matches the value stored in WP_Post-&gt;guid and the guid column in the &quot;post_objects&quot; database table. */
+  guid?: Maybe<Scalars['String']>;
+  /** The globally unique identifier of the graphql_document object. */
+  id: Scalars['ID'];
+  /** Whether the node is a Content Node */
+  isContentNode: Scalars['Boolean'];
+  /** Whether the object is a node in the preview state */
+  isPreview?: Maybe<Scalars['Boolean']>;
+  /** Whether the object is restricted from the current viewer */
+  isRestricted?: Maybe<Scalars['Boolean']>;
+  /** Whether the node is a Term */
+  isTermNode: Scalars['Boolean'];
+  /** The user that most recently edited the node */
+  lastEditedBy?: Maybe<ContentNodeToEditLastConnectionEdge>;
+  /** The permalink of the post */
+  link?: Maybe<Scalars['String']>;
+  /** HTTP Cache-Control max-age directive for a saved GraphQL document */
+  maxAgeHeader?: Maybe<Scalars['Int']>;
+  /** The local modified time for a post. If a post was recently updated the modified field will change to match the corresponding time. */
+  modified?: Maybe<Scalars['String']>;
+  /** The GMT modified time for a post. If a post was recently updated the modified field will change to match the corresponding time in GMT. */
+  modifiedGmt?: Maybe<Scalars['String']>;
+  /**
+   * Connection between the GraphqlDocument type and the graphqlDocument type
+   * @deprecated The &quot;GraphqlDocument&quot; Type is not publicly queryable and does not support previews. This field will be removed in the future.
+   */
+  preview?: Maybe<GraphqlDocumentToPreviewConnectionEdge>;
+  /** The database id of the preview node */
+  previewRevisionDatabaseId?: Maybe<Scalars['Int']>;
+  /** Whether the object is a node in the preview state */
+  previewRevisionId?: Maybe<Scalars['ID']>;
+  /** The Yoast SEO data of the ContentNode */
+  seo?: Maybe<PostTypeSeo>;
+  /** The uri slug for the post. This is equivalent to the WP_Post-&gt;post_name field and the post_name column in the database for the &quot;post_objects&quot; table. */
+  slug?: Maybe<Scalars['String']>;
+  /** The current status of the object */
+  status?: Maybe<Scalars['String']>;
+  /** The template assigned to the node */
+  template?: Maybe<ContentTemplate>;
+  templates?: Maybe<Array<Maybe<Scalars['String']>>>;
+  /** The title of the post. This is currently just the raw title. An amendment to support rendered title needs to be made. */
+  title?: Maybe<Scalars['String']>;
+  /** The unique resource identifier path */
+  uri?: Maybe<Scalars['String']>;
+};
+
+
+/** The graphqlDocument type */
+export type GraphqlDocumentContentArgs = {
+  format?: InputMaybe<PostObjectFieldFormatEnum>;
+};
+
+
+/** The graphqlDocument type */
+export type GraphqlDocumentEnqueuedScriptsArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+};
+
+
+/** The graphqlDocument type */
+export type GraphqlDocumentEnqueuedStylesheetsArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+};
+
+
+/** The graphqlDocument type */
+export type GraphqlDocumentTitleArgs = {
+  format?: InputMaybe<PostObjectFieldFormatEnum>;
+};
+
+/** Connection to graphqlDocument Nodes */
+export type GraphqlDocumentConnection = {
+  /** A list of edges (relational context) between RootQuery and connected graphqlDocument Nodes */
+  edges: Array<GraphqlDocumentConnectionEdge>;
+  /** A list of connected graphqlDocument Nodes */
+  nodes: Array<GraphqlDocument>;
+  /** Information about pagination in a connection. */
+  pageInfo: GraphqlDocumentConnectionPageInfo;
+};
+
+/** Edge between a Node and a connected graphqlDocument */
+export type GraphqlDocumentConnectionEdge = {
+  /** Opaque reference to the nodes position in the connection. Value can be used with pagination args. */
+  cursor?: Maybe<Scalars['String']>;
+  /** The connected graphqlDocument Node */
+  node: GraphqlDocument;
+};
+
+/** Page Info on the connected GraphqlDocumentConnectionEdge */
+export type GraphqlDocumentConnectionPageInfo = {
+  /** When paginating forwards, the cursor to continue. */
+  endCursor?: Maybe<Scalars['String']>;
+  /** When paginating forwards, are there more items? */
+  hasNextPage: Scalars['Boolean'];
+  /** When paginating backwards, are there more items? */
+  hasPreviousPage: Scalars['Boolean'];
+  /** Raw schema for page */
+  seo?: Maybe<SeoPostTypePageInfo>;
+  /** When paginating backwards, the cursor to continue. */
+  startCursor?: Maybe<Scalars['String']>;
+};
+
+/** The Type of Identifier used to fetch a single resource. Default is ID. */
+export enum GraphqlDocumentIdType {
+  /** Identify a resource by the Database ID. */
+  DatabaseId = 'DATABASE_ID',
+  /** Identify a resource by the (hashed) Global ID. */
+  Id = 'ID',
+  /** Identify a resource by the slug. Available to non-hierarchcial Types where the slug is a unique identifier. */
+  Slug = 'SLUG',
+  /** Identify a resource by the URI. */
+  Uri = 'URI'
+}
+
+/** Connection between the GraphqlDocument type and the graphqlDocument type */
+export type GraphqlDocumentToPreviewConnectionEdge = Edge & GraphqlDocumentConnectionEdge & OneToOneConnection & {
+  __typename?: 'GraphqlDocumentToPreviewConnectionEdge';
+  /** Opaque reference to the nodes position in the connection. Value can be used with pagination args. */
+  cursor?: Maybe<Scalars['String']>;
+  /**
+   * The node of the connection, without the edges
+   * @deprecated The &quot;GraphqlDocument&quot; Type is not publicly queryable and does not support previews. This field will be removed in the future.
+   */
+  node: GraphqlDocument;
+};
+
 /** A Gravity Forms hidden field. */
 export type HiddenField = FormField & GfFieldWithDefaultValueSetting & GfFieldWithLabelSetting & GfFieldWithPersonalData & GfFieldWithPrepopulateFieldSetting & {
   __typename?: 'HiddenField';
@@ -6968,183 +7200,183 @@ export type MenuToMenuItemConnectionWhereArgs = {
 
 /** The MimeType of the object */
 export enum MimeTypeEnum {
-  /** application/java mime type. */
+  /** MimeType application/java */
   ApplicationJava = 'APPLICATION_JAVA',
-  /** application/msword mime type. */
+  /** MimeType application/msword */
   ApplicationMsword = 'APPLICATION_MSWORD',
-  /** application/octet-stream mime type. */
+  /** MimeType application/octet-stream */
   ApplicationOctetStream = 'APPLICATION_OCTET_STREAM',
-  /** application/onenote mime type. */
+  /** MimeType application/onenote */
   ApplicationOnenote = 'APPLICATION_ONENOTE',
-  /** application/oxps mime type. */
+  /** MimeType application/oxps */
   ApplicationOxps = 'APPLICATION_OXPS',
-  /** application/pdf mime type. */
+  /** MimeType application/pdf */
   ApplicationPdf = 'APPLICATION_PDF',
-  /** application/rar mime type. */
+  /** MimeType application/rar */
   ApplicationRar = 'APPLICATION_RAR',
-  /** application/rtf mime type. */
+  /** MimeType application/rtf */
   ApplicationRtf = 'APPLICATION_RTF',
-  /** application/ttaf+xml mime type. */
+  /** MimeType application/ttaf+xml */
   ApplicationTtafXml = 'APPLICATION_TTAF_XML',
-  /** application/vnd.apple.keynote mime type. */
+  /** MimeType application/vnd.apple.keynote */
   ApplicationVndAppleKeynote = 'APPLICATION_VND_APPLE_KEYNOTE',
-  /** application/vnd.apple.numbers mime type. */
+  /** MimeType application/vnd.apple.numbers */
   ApplicationVndAppleNumbers = 'APPLICATION_VND_APPLE_NUMBERS',
-  /** application/vnd.apple.pages mime type. */
+  /** MimeType application/vnd.apple.pages */
   ApplicationVndApplePages = 'APPLICATION_VND_APPLE_PAGES',
-  /** application/vnd.ms-access mime type. */
+  /** MimeType application/vnd.ms-access */
   ApplicationVndMsAccess = 'APPLICATION_VND_MS_ACCESS',
-  /** application/vnd.ms-excel mime type. */
+  /** MimeType application/vnd.ms-excel */
   ApplicationVndMsExcel = 'APPLICATION_VND_MS_EXCEL',
-  /** application/vnd.ms-excel.addin.macroEnabled.12 mime type. */
+  /** MimeType application/vnd.ms-excel.addin.macroEnabled.12 */
   ApplicationVndMsExcelAddinMacroenabled_12 = 'APPLICATION_VND_MS_EXCEL_ADDIN_MACROENABLED_12',
-  /** application/vnd.ms-excel.sheet.binary.macroEnabled.12 mime type. */
+  /** MimeType application/vnd.ms-excel.sheet.binary.macroEnabled.12 */
   ApplicationVndMsExcelSheetBinaryMacroenabled_12 = 'APPLICATION_VND_MS_EXCEL_SHEET_BINARY_MACROENABLED_12',
-  /** application/vnd.ms-excel.sheet.macroEnabled.12 mime type. */
+  /** MimeType application/vnd.ms-excel.sheet.macroEnabled.12 */
   ApplicationVndMsExcelSheetMacroenabled_12 = 'APPLICATION_VND_MS_EXCEL_SHEET_MACROENABLED_12',
-  /** application/vnd.ms-excel.template.macroEnabled.12 mime type. */
+  /** MimeType application/vnd.ms-excel.template.macroEnabled.12 */
   ApplicationVndMsExcelTemplateMacroenabled_12 = 'APPLICATION_VND_MS_EXCEL_TEMPLATE_MACROENABLED_12',
-  /** application/vnd.ms-powerpoint mime type. */
+  /** MimeType application/vnd.ms-powerpoint */
   ApplicationVndMsPowerpoint = 'APPLICATION_VND_MS_POWERPOINT',
-  /** application/vnd.ms-powerpoint.addin.macroEnabled.12 mime type. */
+  /** MimeType application/vnd.ms-powerpoint.addin.macroEnabled.12 */
   ApplicationVndMsPowerpointAddinMacroenabled_12 = 'APPLICATION_VND_MS_POWERPOINT_ADDIN_MACROENABLED_12',
-  /** application/vnd.ms-powerpoint.presentation.macroEnabled.12 mime type. */
+  /** MimeType application/vnd.ms-powerpoint.presentation.macroEnabled.12 */
   ApplicationVndMsPowerpointPresentationMacroenabled_12 = 'APPLICATION_VND_MS_POWERPOINT_PRESENTATION_MACROENABLED_12',
-  /** application/vnd.ms-powerpoint.slideshow.macroEnabled.12 mime type. */
+  /** MimeType application/vnd.ms-powerpoint.slideshow.macroEnabled.12 */
   ApplicationVndMsPowerpointSlideshowMacroenabled_12 = 'APPLICATION_VND_MS_POWERPOINT_SLIDESHOW_MACROENABLED_12',
-  /** application/vnd.ms-powerpoint.slide.macroEnabled.12 mime type. */
+  /** MimeType application/vnd.ms-powerpoint.slide.macroEnabled.12 */
   ApplicationVndMsPowerpointSlideMacroenabled_12 = 'APPLICATION_VND_MS_POWERPOINT_SLIDE_MACROENABLED_12',
-  /** application/vnd.ms-powerpoint.template.macroEnabled.12 mime type. */
+  /** MimeType application/vnd.ms-powerpoint.template.macroEnabled.12 */
   ApplicationVndMsPowerpointTemplateMacroenabled_12 = 'APPLICATION_VND_MS_POWERPOINT_TEMPLATE_MACROENABLED_12',
-  /** application/vnd.ms-project mime type. */
+  /** MimeType application/vnd.ms-project */
   ApplicationVndMsProject = 'APPLICATION_VND_MS_PROJECT',
-  /** application/vnd.ms-word.document.macroEnabled.12 mime type. */
+  /** MimeType application/vnd.ms-word.document.macroEnabled.12 */
   ApplicationVndMsWordDocumentMacroenabled_12 = 'APPLICATION_VND_MS_WORD_DOCUMENT_MACROENABLED_12',
-  /** application/vnd.ms-word.template.macroEnabled.12 mime type. */
+  /** MimeType application/vnd.ms-word.template.macroEnabled.12 */
   ApplicationVndMsWordTemplateMacroenabled_12 = 'APPLICATION_VND_MS_WORD_TEMPLATE_MACROENABLED_12',
-  /** application/vnd.ms-write mime type. */
+  /** MimeType application/vnd.ms-write */
   ApplicationVndMsWrite = 'APPLICATION_VND_MS_WRITE',
-  /** application/vnd.ms-xpsdocument mime type. */
+  /** MimeType application/vnd.ms-xpsdocument */
   ApplicationVndMsXpsdocument = 'APPLICATION_VND_MS_XPSDOCUMENT',
-  /** application/vnd.oasis.opendocument.chart mime type. */
+  /** MimeType application/vnd.oasis.opendocument.chart */
   ApplicationVndOasisOpendocumentChart = 'APPLICATION_VND_OASIS_OPENDOCUMENT_CHART',
-  /** application/vnd.oasis.opendocument.database mime type. */
+  /** MimeType application/vnd.oasis.opendocument.database */
   ApplicationVndOasisOpendocumentDatabase = 'APPLICATION_VND_OASIS_OPENDOCUMENT_DATABASE',
-  /** application/vnd.oasis.opendocument.formula mime type. */
+  /** MimeType application/vnd.oasis.opendocument.formula */
   ApplicationVndOasisOpendocumentFormula = 'APPLICATION_VND_OASIS_OPENDOCUMENT_FORMULA',
-  /** application/vnd.oasis.opendocument.graphics mime type. */
+  /** MimeType application/vnd.oasis.opendocument.graphics */
   ApplicationVndOasisOpendocumentGraphics = 'APPLICATION_VND_OASIS_OPENDOCUMENT_GRAPHICS',
-  /** application/vnd.oasis.opendocument.presentation mime type. */
+  /** MimeType application/vnd.oasis.opendocument.presentation */
   ApplicationVndOasisOpendocumentPresentation = 'APPLICATION_VND_OASIS_OPENDOCUMENT_PRESENTATION',
-  /** application/vnd.oasis.opendocument.spreadsheet mime type. */
+  /** MimeType application/vnd.oasis.opendocument.spreadsheet */
   ApplicationVndOasisOpendocumentSpreadsheet = 'APPLICATION_VND_OASIS_OPENDOCUMENT_SPREADSHEET',
-  /** application/vnd.oasis.opendocument.text mime type. */
+  /** MimeType application/vnd.oasis.opendocument.text */
   ApplicationVndOasisOpendocumentText = 'APPLICATION_VND_OASIS_OPENDOCUMENT_TEXT',
-  /** application/vnd.openxmlformats-officedocument.presentationml.presentation mime type. */
+  /** MimeType application/vnd.openxmlformats-officedocument.presentationml.presentation */
   ApplicationVndOpenxmlformatsOfficedocumentPresentationmlPresentation = 'APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_PRESENTATIONML_PRESENTATION',
-  /** application/vnd.openxmlformats-officedocument.presentationml.slide mime type. */
+  /** MimeType application/vnd.openxmlformats-officedocument.presentationml.slide */
   ApplicationVndOpenxmlformatsOfficedocumentPresentationmlSlide = 'APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_PRESENTATIONML_SLIDE',
-  /** application/vnd.openxmlformats-officedocument.presentationml.slideshow mime type. */
+  /** MimeType application/vnd.openxmlformats-officedocument.presentationml.slideshow */
   ApplicationVndOpenxmlformatsOfficedocumentPresentationmlSlideshow = 'APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_PRESENTATIONML_SLIDESHOW',
-  /** application/vnd.openxmlformats-officedocument.presentationml.template mime type. */
+  /** MimeType application/vnd.openxmlformats-officedocument.presentationml.template */
   ApplicationVndOpenxmlformatsOfficedocumentPresentationmlTemplate = 'APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_PRESENTATIONML_TEMPLATE',
-  /** application/vnd.openxmlformats-officedocument.spreadsheetml.sheet mime type. */
+  /** MimeType application/vnd.openxmlformats-officedocument.spreadsheetml.sheet */
   ApplicationVndOpenxmlformatsOfficedocumentSpreadsheetmlSheet = 'APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_SPREADSHEETML_SHEET',
-  /** application/vnd.openxmlformats-officedocument.spreadsheetml.template mime type. */
+  /** MimeType application/vnd.openxmlformats-officedocument.spreadsheetml.template */
   ApplicationVndOpenxmlformatsOfficedocumentSpreadsheetmlTemplate = 'APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_SPREADSHEETML_TEMPLATE',
-  /** application/vnd.openxmlformats-officedocument.wordprocessingml.document mime type. */
+  /** MimeType application/vnd.openxmlformats-officedocument.wordprocessingml.document */
   ApplicationVndOpenxmlformatsOfficedocumentWordprocessingmlDocument = 'APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_WORDPROCESSINGML_DOCUMENT',
-  /** application/vnd.openxmlformats-officedocument.wordprocessingml.template mime type. */
+  /** MimeType application/vnd.openxmlformats-officedocument.wordprocessingml.template */
   ApplicationVndOpenxmlformatsOfficedocumentWordprocessingmlTemplate = 'APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_WORDPROCESSINGML_TEMPLATE',
-  /** application/wordperfect mime type. */
+  /** MimeType application/wordperfect */
   ApplicationWordperfect = 'APPLICATION_WORDPERFECT',
-  /** application/x-7z-compressed mime type. */
+  /** MimeType application/x-7z-compressed */
   ApplicationX_7ZCompressed = 'APPLICATION_X_7Z_COMPRESSED',
-  /** application/x-gzip mime type. */
+  /** MimeType application/x-gzip */
   ApplicationXGzip = 'APPLICATION_X_GZIP',
-  /** application/x-tar mime type. */
+  /** MimeType application/x-tar */
   ApplicationXTar = 'APPLICATION_X_TAR',
-  /** application/zip mime type. */
+  /** MimeType application/zip */
   ApplicationZip = 'APPLICATION_ZIP',
-  /** audio/aac mime type. */
+  /** MimeType audio/aac */
   AudioAac = 'AUDIO_AAC',
-  /** audio/flac mime type. */
+  /** MimeType audio/flac */
   AudioFlac = 'AUDIO_FLAC',
-  /** audio/midi mime type. */
+  /** MimeType audio/midi */
   AudioMidi = 'AUDIO_MIDI',
-  /** audio/mpeg mime type. */
+  /** MimeType audio/mpeg */
   AudioMpeg = 'AUDIO_MPEG',
-  /** audio/ogg mime type. */
+  /** MimeType audio/ogg */
   AudioOgg = 'AUDIO_OGG',
-  /** audio/wav mime type. */
+  /** MimeType audio/wav */
   AudioWav = 'AUDIO_WAV',
-  /** audio/x-matroska mime type. */
+  /** MimeType audio/x-matroska */
   AudioXMatroska = 'AUDIO_X_MATROSKA',
-  /** audio/x-ms-wax mime type. */
+  /** MimeType audio/x-ms-wax */
   AudioXMsWax = 'AUDIO_X_MS_WAX',
-  /** audio/x-ms-wma mime type. */
+  /** MimeType audio/x-ms-wma */
   AudioXMsWma = 'AUDIO_X_MS_WMA',
-  /** audio/x-realaudio mime type. */
+  /** MimeType audio/x-realaudio */
   AudioXRealaudio = 'AUDIO_X_REALAUDIO',
-  /** image/bmp mime type. */
+  /** MimeType image/bmp */
   ImageBmp = 'IMAGE_BMP',
-  /** image/gif mime type. */
+  /** MimeType image/gif */
   ImageGif = 'IMAGE_GIF',
-  /** image/heic mime type. */
+  /** MimeType image/heic */
   ImageHeic = 'IMAGE_HEIC',
-  /** image/jpeg mime type. */
+  /** MimeType image/jpeg */
   ImageJpeg = 'IMAGE_JPEG',
-  /** image/png mime type. */
+  /** MimeType image/png */
   ImagePng = 'IMAGE_PNG',
-  /** image/tiff mime type. */
+  /** MimeType image/tiff */
   ImageTiff = 'IMAGE_TIFF',
-  /** image/webp mime type. */
+  /** MimeType image/webp */
   ImageWebp = 'IMAGE_WEBP',
-  /** image/x-icon mime type. */
+  /** MimeType image/x-icon */
   ImageXIcon = 'IMAGE_X_ICON',
-  /** text/calendar mime type. */
+  /** MimeType text/calendar */
   TextCalendar = 'TEXT_CALENDAR',
-  /** text/css mime type. */
+  /** MimeType text/css */
   TextCss = 'TEXT_CSS',
-  /** text/csv mime type. */
+  /** MimeType text/csv */
   TextCsv = 'TEXT_CSV',
-  /** text/plain mime type. */
+  /** MimeType text/plain */
   TextPlain = 'TEXT_PLAIN',
-  /** text/richtext mime type. */
+  /** MimeType text/richtext */
   TextRichtext = 'TEXT_RICHTEXT',
-  /** text/tab-separated-values mime type. */
+  /** MimeType text/tab-separated-values */
   TextTabSeparatedValues = 'TEXT_TAB_SEPARATED_VALUES',
-  /** text/vtt mime type. */
+  /** MimeType text/vtt */
   TextVtt = 'TEXT_VTT',
-  /** video/3gpp mime type. */
+  /** MimeType video/3gpp */
   Video_3Gpp = 'VIDEO_3GPP',
-  /** video/3gpp2 mime type. */
+  /** MimeType video/3gpp2 */
   Video_3Gpp2 = 'VIDEO_3GPP2',
-  /** video/avi mime type. */
+  /** MimeType video/avi */
   VideoAvi = 'VIDEO_AVI',
-  /** video/divx mime type. */
+  /** MimeType video/divx */
   VideoDivx = 'VIDEO_DIVX',
-  /** video/mp4 mime type. */
+  /** MimeType video/mp4 */
   VideoMp4 = 'VIDEO_MP4',
-  /** video/mpeg mime type. */
+  /** MimeType video/mpeg */
   VideoMpeg = 'VIDEO_MPEG',
-  /** video/ogg mime type. */
+  /** MimeType video/ogg */
   VideoOgg = 'VIDEO_OGG',
-  /** video/quicktime mime type. */
+  /** MimeType video/quicktime */
   VideoQuicktime = 'VIDEO_QUICKTIME',
-  /** video/webm mime type. */
+  /** MimeType video/webm */
   VideoWebm = 'VIDEO_WEBM',
-  /** video/x-flv mime type. */
+  /** MimeType video/x-flv */
   VideoXFlv = 'VIDEO_X_FLV',
-  /** video/x-matroska mime type. */
+  /** MimeType video/x-matroska */
   VideoXMatroska = 'VIDEO_X_MATROSKA',
-  /** video/x-ms-asf mime type. */
+  /** MimeType video/x-ms-asf */
   VideoXMsAsf = 'VIDEO_X_MS_ASF',
-  /** video/x-ms-wm mime type. */
+  /** MimeType video/x-ms-wm */
   VideoXMsWm = 'VIDEO_X_MS_WM',
-  /** video/x-ms-wmv mime type. */
+  /** MimeType video/x-ms-wmv */
   VideoXMsWmv = 'VIDEO_X_MS_WMV',
-  /** video/x-ms-wmx mime type. */
+  /** MimeType video/x-ms-wmx */
   VideoXMsWmx = 'VIDEO_X_MS_WMX'
 }
 
@@ -11204,7 +11436,7 @@ export enum PostObjectFieldFormatEnum {
 }
 
 /** Union between the post, page and media item types */
-export type PostObjectUnion = MediaItem | Page | Post;
+export type PostObjectUnion = GraphqlDocument | MediaItem | Page | Post;
 
 /** The column to use when filtering by date */
 export enum PostObjectsConnectionDateColumnEnum {
@@ -13436,6 +13668,8 @@ export type RootMutation = {
   createCategory?: Maybe<CreateCategoryPayload>;
   /** The createComment mutation */
   createComment?: Maybe<CreateCommentPayload>;
+  /** The createGraphqlDocument mutation */
+  createGraphqlDocument?: Maybe<CreateGraphqlDocumentPayload>;
   /** The createMediaItem mutation */
   createMediaItem?: Maybe<CreateMediaItemPayload>;
   /** The createPage mutation */
@@ -13456,6 +13690,8 @@ export type RootMutation = {
   deleteGfDraftEntry?: Maybe<DeleteGfDraftEntryPayload>;
   /** The deleteGfEntry mutation */
   deleteGfEntry?: Maybe<DeleteGfEntryPayload>;
+  /** The deleteGraphqlDocument mutation */
+  deleteGraphqlDocument?: Maybe<DeleteGraphqlDocumentPayload>;
   /** The deleteMediaItem mutation */
   deleteMediaItem?: Maybe<DeleteMediaItemPayload>;
   /** The deletePage mutation */
@@ -13492,6 +13728,8 @@ export type RootMutation = {
   updateGfDraftEntry?: Maybe<UpdateGfDraftEntryPayload>;
   /** The updateGfEntry mutation */
   updateGfEntry?: Maybe<UpdateGfEntryPayload>;
+  /** The updateGraphqlDocument mutation */
+  updateGraphqlDocument?: Maybe<UpdateGraphqlDocumentPayload>;
   /** The updateMediaItem mutation */
   updateMediaItem?: Maybe<UpdateMediaItemPayload>;
   /** The updatePage mutation */
@@ -13518,6 +13756,12 @@ export type RootMutationCreateCategoryArgs = {
 /** The root mutation */
 export type RootMutationCreateCommentArgs = {
   input: CreateCommentInput;
+};
+
+
+/** The root mutation */
+export type RootMutationCreateGraphqlDocumentArgs = {
+  input: CreateGraphqlDocumentInput;
 };
 
 
@@ -13578,6 +13822,12 @@ export type RootMutationDeleteGfDraftEntryArgs = {
 /** The root mutation */
 export type RootMutationDeleteGfEntryArgs = {
   input: DeleteGfEntryInput;
+};
+
+
+/** The root mutation */
+export type RootMutationDeleteGraphqlDocumentArgs = {
+  input: DeleteGraphqlDocumentInput;
 };
 
 
@@ -13690,6 +13940,12 @@ export type RootMutationUpdateGfEntryArgs = {
 
 
 /** The root mutation */
+export type RootMutationUpdateGraphqlDocumentArgs = {
+  input: UpdateGraphqlDocumentInput;
+};
+
+
+/** The root mutation */
 export type RootMutationUpdateMediaItemArgs = {
   input: UpdateMediaItemInput;
 };
@@ -13773,6 +14029,15 @@ export type RootQuery = {
   gfSubmittedEntry?: Maybe<GfSubmittedEntry>;
   /** Returns the stylesheet resulting of merging core, theme, and user data. */
   globalStylesheet?: Maybe<Scalars['String']>;
+  /** An object of the graphqlDocument Type. Saved GraphQL Documents */
+  graphqlDocument?: Maybe<GraphqlDocument>;
+  /**
+   * A graphqlDocument object
+   * @deprecated Deprecated in favor of using the single entry point for this type with ID and IDType fields. For example, instead of postBy( id: &quot;&quot; ), use post(id: &quot;&quot; idType: &quot;&quot;)
+   */
+  graphqlDocumentBy?: Maybe<GraphqlDocument>;
+  /** Connection between the RootQuery type and the graphqlDocument type */
+  graphqlDocuments?: Maybe<RootQueryToGraphqlDocumentConnection>;
   /** An object of the mediaItem Type.  */
   mediaItem?: Maybe<MediaItem>;
   /**
@@ -13991,6 +14256,33 @@ export type RootQueryGfSubmittedEntryArgs = {
 /** The root entry point into the Graph */
 export type RootQueryGlobalStylesheetArgs = {
   types?: InputMaybe<Array<InputMaybe<GlobalStylesheetTypesEnum>>>;
+};
+
+
+/** The root entry point into the Graph */
+export type RootQueryGraphqlDocumentArgs = {
+  asPreview?: InputMaybe<Scalars['Boolean']>;
+  id: Scalars['ID'];
+  idType?: InputMaybe<GraphqlDocumentIdType>;
+};
+
+
+/** The root entry point into the Graph */
+export type RootQueryGraphqlDocumentByArgs = {
+  graphqlDocumentId?: InputMaybe<Scalars['Int']>;
+  id?: InputMaybe<Scalars['ID']>;
+  slug?: InputMaybe<Scalars['String']>;
+  uri?: InputMaybe<Scalars['String']>;
+};
+
+
+/** The root entry point into the Graph */
+export type RootQueryGraphqlDocumentsArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<RootQueryToGraphqlDocumentConnectionWhereArgs>;
 };
 
 
@@ -14783,6 +15075,79 @@ export type RootQueryToGfSubmittedEntryConnectionWhereArgs = {
   orderby?: InputMaybe<EntriesConnectionOrderbyInput>;
   /** Entry status. Default is "ACTIVE". */
   status?: InputMaybe<EntryStatusEnum>;
+};
+
+/** Connection between the RootQuery type and the graphqlDocument type */
+export type RootQueryToGraphqlDocumentConnection = Connection & GraphqlDocumentConnection & {
+  __typename?: 'RootQueryToGraphqlDocumentConnection';
+  /** Edges for the RootQueryToGraphqlDocumentConnection connection */
+  edges: Array<RootQueryToGraphqlDocumentConnectionEdge>;
+  /** The nodes of the connection, without the edges */
+  nodes: Array<GraphqlDocument>;
+  /** Information about pagination in a connection. */
+  pageInfo: RootQueryToGraphqlDocumentConnectionPageInfo;
+};
+
+/** An edge in a connection */
+export type RootQueryToGraphqlDocumentConnectionEdge = Edge & GraphqlDocumentConnectionEdge & {
+  __typename?: 'RootQueryToGraphqlDocumentConnectionEdge';
+  /** A cursor for use in pagination */
+  cursor?: Maybe<Scalars['String']>;
+  /** The item at the end of the edge */
+  node: GraphqlDocument;
+};
+
+/** Page Info on the &quot;RootQueryToGraphqlDocumentConnection&quot; */
+export type RootQueryToGraphqlDocumentConnectionPageInfo = GraphqlDocumentConnectionPageInfo & PageInfo & WpPageInfo & {
+  __typename?: 'RootQueryToGraphqlDocumentConnectionPageInfo';
+  /** When paginating forwards, the cursor to continue. */
+  endCursor?: Maybe<Scalars['String']>;
+  /** When paginating forwards, are there more items? */
+  hasNextPage: Scalars['Boolean'];
+  /** When paginating backwards, are there more items? */
+  hasPreviousPage: Scalars['Boolean'];
+  /** Raw schema for page */
+  seo?: Maybe<SeoPostTypePageInfo>;
+  /** When paginating backwards, the cursor to continue. */
+  startCursor?: Maybe<Scalars['String']>;
+};
+
+/** Arguments for filtering the RootQueryToGraphqlDocumentConnection connection */
+export type RootQueryToGraphqlDocumentConnectionWhereArgs = {
+  /** Filter the connection based on dates */
+  dateQuery?: InputMaybe<DateQueryInput>;
+  /** True for objects with passwords; False for objects without passwords; null for all objects with or without passwords */
+  hasPassword?: InputMaybe<Scalars['Boolean']>;
+  /** Specific database ID of the object */
+  id?: InputMaybe<Scalars['Int']>;
+  /** Array of IDs for the objects to retrieve */
+  in?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  /** Get objects with a specific mimeType property */
+  mimeType?: InputMaybe<MimeTypeEnum>;
+  /** Slug / post_name of the object */
+  name?: InputMaybe<Scalars['String']>;
+  /** Specify objects to retrieve. Use slugs */
+  nameIn?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** Specify IDs NOT to retrieve. If this is used in the same query as "in", it will be ignored */
+  notIn?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  /** What paramater to use to order the objects by. */
+  orderby?: InputMaybe<Array<InputMaybe<PostObjectsConnectionOrderbyInput>>>;
+  /** Use ID to return only children. Use 0 to return only top-level items */
+  parent?: InputMaybe<Scalars['ID']>;
+  /** Specify objects whose parent is in an array */
+  parentIn?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  /** Specify posts whose parent is not in an array */
+  parentNotIn?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  /** Show posts with a specific password. */
+  password?: InputMaybe<Scalars['String']>;
+  /** Show Posts based on a keyword search */
+  search?: InputMaybe<Scalars['String']>;
+  /** Retrieve posts where post status is in an array. */
+  stati?: InputMaybe<Array<InputMaybe<PostStatusEnum>>>;
+  /** Show posts with a specific status. */
+  status?: InputMaybe<PostStatusEnum>;
+  /** Title of the object */
+  title?: InputMaybe<Scalars['String']>;
 };
 
 /** Connection between the RootQuery type and the mediaItem type */
@@ -15741,6 +16106,7 @@ export type SeoContentTypeArchive = {
 /** The Yoast SEO search appearance content types */
 export type SeoContentTypes = {
   __typename?: 'SEOContentTypes';
+  graphqlDocument?: Maybe<SeoContentType>;
   mediaItem?: Maybe<SeoContentType>;
   page?: Maybe<SeoContentType>;
   post?: Maybe<SeoContentType>;
@@ -17729,6 +18095,47 @@ export type UpdateGfEntryPayload = {
   errors?: Maybe<Array<Maybe<FieldError>>>;
 };
 
+/** Input for the updateGraphqlDocument mutation. */
+export type UpdateGraphqlDocumentInput = {
+  /** Alias names for saved GraphQL query documents */
+  alias?: InputMaybe<Array<Scalars['String']>>;
+  /** This is an ID that can be passed to a mutation by the client to track the progress of mutations and catch possible duplicate mutation submissions. */
+  clientMutationId?: InputMaybe<Scalars['String']>;
+  /** The content of the object */
+  content?: InputMaybe<Scalars['String']>;
+  /** The date of the object. Preferable to enter as year/month/day (e.g. 01/31/2017) as it will rearrange date as fit if it is not specified. Incomplete dates may have unintended results for example, "2017" as the input will use current date with timestamp 20:17  */
+  date?: InputMaybe<Scalars['String']>;
+  /** Description for the saved GraphQL document */
+  description?: InputMaybe<Scalars['String']>;
+  /** Allow, deny or default access grant for specific query */
+  grant?: InputMaybe<Scalars['String']>;
+  /** The ID of the graphqlDocument object */
+  id: Scalars['ID'];
+  /** Override the edit lock when another user is editing the post */
+  ignoreEditLock?: InputMaybe<Scalars['Boolean']>;
+  /** HTTP Cache-Control max-age directive for a saved GraphQL document */
+  maxAgeHeader?: InputMaybe<Scalars['Int']>;
+  /** A field used for ordering posts. This is typically used with nav menu items or for special ordering of hierarchical content types. */
+  menuOrder?: InputMaybe<Scalars['Int']>;
+  /** The password used to protect the content of the object */
+  password?: InputMaybe<Scalars['String']>;
+  /** The slug of the object */
+  slug?: InputMaybe<Scalars['String']>;
+  /** The status of the object */
+  status?: InputMaybe<PostStatusEnum>;
+  /** The title of the object */
+  title?: InputMaybe<Scalars['String']>;
+};
+
+/** The payload for the updateGraphqlDocument mutation. */
+export type UpdateGraphqlDocumentPayload = {
+  __typename?: 'UpdateGraphqlDocumentPayload';
+  /** If a &#039;clientMutationId&#039; input is provided to the mutation, it will be returned as output on the mutation. This ID can be used by the client to track the progress of mutations and catch possible duplicate mutation submissions. */
+  clientMutationId?: Maybe<Scalars['String']>;
+  /** The Post object mutation type. */
+  graphqlDocument?: Maybe<GraphqlDocument>;
+};
+
 /** Input for the updateMediaItem mutation. */
 export type UpdateMediaItemInput = {
   /** Alternative text to display when mediaItem is not displayed */
@@ -18981,7 +19388,7 @@ export type GetArchiveQueryVariables = Exact<{
 }>;
 
 
-export type GetArchiveQuery = { __typename?: 'RootQuery', page?: { __typename?: 'Page', title?: string | null, content?: string | null, seo?: { __typename?: 'PostTypeSEO', fullHead?: string | null } | null } | null, nodeByUri?: { __typename?: 'Category', name?: string | null, archiveType: 'Category', posts?: { __typename?: 'CategoryToPostConnection', nodes: Array<{ __typename?: 'Post', id: string, title?: string | null, uri?: string | null }> } | null } | { __typename?: 'ContentType', archiveType: 'ContentType' } | { __typename?: 'MediaItem', archiveType: 'MediaItem' } | { __typename?: 'Page', archiveType: 'Page' } | { __typename?: 'Post', archiveType: 'Post' } | { __typename?: 'PostFormat', archiveType: 'PostFormat' } | { __typename?: 'Tag', name?: string | null, archiveType: 'Tag', posts?: { __typename?: 'TagToPostConnection', nodes: Array<{ __typename?: 'Post', id: string, title?: string | null, uri?: string | null }> } | null } | { __typename?: 'User', archiveType: 'User' } | null, generalSettings?: { __typename?: 'GeneralSettings', title?: string | null, description?: string | null } | null, primaryMenuItems?: { __typename?: 'RootQueryToMenuItemConnection', nodes: Array<{ __typename?: 'MenuItem', id: string, uri?: string | null, path?: string | null, label?: string | null, parentId?: string | null, cssClasses?: Array<string | null> | null, menu?: { __typename?: 'MenuItemToMenuConnectionEdge', node: { __typename?: 'Menu', name?: string | null } } | null }> } | null };
+export type GetArchiveQuery = { __typename?: 'RootQuery', page?: { __typename?: 'Page', title?: string | null, content?: string | null, seo?: { __typename?: 'PostTypeSEO', fullHead?: string | null } | null } | null, nodeByUri?: { __typename?: 'Category', name?: string | null, archiveType: 'Category', posts?: { __typename?: 'CategoryToPostConnection', nodes: Array<{ __typename?: 'Post', id: string, title?: string | null, uri?: string | null }> } | null } | { __typename?: 'ContentType', archiveType: 'ContentType' } | { __typename?: 'GraphqlDocument', archiveType: 'GraphqlDocument' } | { __typename?: 'MediaItem', archiveType: 'MediaItem' } | { __typename?: 'Page', archiveType: 'Page' } | { __typename?: 'Post', archiveType: 'Post' } | { __typename?: 'PostFormat', archiveType: 'PostFormat' } | { __typename?: 'Tag', name?: string | null, archiveType: 'Tag', posts?: { __typename?: 'TagToPostConnection', nodes: Array<{ __typename?: 'Post', id: string, title?: string | null, uri?: string | null }> } | null } | { __typename?: 'User', archiveType: 'User' } | null, generalSettings?: { __typename?: 'GeneralSettings', title?: string | null, description?: string | null } | null, primaryMenuItems?: { __typename?: 'RootQueryToMenuItemConnection', nodes: Array<{ __typename?: 'MenuItem', id: string, uri?: string | null, path?: string | null, label?: string | null, parentId?: string | null, cssClasses?: Array<string | null> | null, menu?: { __typename?: 'MenuItemToMenuConnectionEdge', node: { __typename?: 'Menu', name?: string | null } } | null }> } | null };
 
 export type SubmitFormMutationVariables = Exact<{
   databaseId: Scalars['ID'];
@@ -19005,7 +19412,7 @@ export type GetHomePageQueryVariables = Exact<{
 }>;
 
 
-export type GetHomePageQuery = { __typename?: 'RootQuery', page?: { __typename?: 'Page', title?: string | null, content?: string | null, seo?: { __typename?: 'PostTypeSEO', fullHead?: string | null } | null, home?: { __typename?: 'Page_Home', heroSection?: { __typename?: 'Page_Home_HeroSection', body?: string | null, headingRepeater?: Array<{ __typename?: 'Page_Home_HeroSection_headingRepeater', text?: string | null, isAccented?: boolean | null } | null> | null, cta?: { __typename?: 'MediaItem' } | { __typename?: 'Page', title?: string | null, uri?: string | null } | { __typename?: 'Post' } | null } | null, introSection?: { __typename?: 'Page_Home_IntroSection', heading?: string | null, body?: string | null, featuredList?: Array<{ __typename?: 'Page_Home_IntroSection_featuredList', heading?: string | null, body?: string | null, image?: { __typename?: 'MediaItem', sourceUrl?: string | null } | null } | null> | null } | null, testimonialsSection?: { __typename?: 'Page_Home_TestimonialsSection', heading?: string | null, body?: string | null, testimonialList?: Array<{ __typename?: 'Page_Home_TestimonialsSection_testimonialList', name?: string | null, quote?: string | null, location?: string | null } | null> | null } | null, ctaSection?: { __typename?: 'Page_Home_CtaSection', heading?: string | null, body?: string | null, link?: { __typename?: 'MediaItem' } | { __typename?: 'Page', uri?: string | null, title?: string | null } | { __typename?: 'Post' } | null } | null, blogSection?: { __typename?: 'Page_Home_BlogSection', heading?: string | null, body?: string | null, featuredPosts?: Array<{ __typename?: 'MediaItem' } | { __typename?: 'Page' } | { __typename?: 'Post', id: string, title?: string | null, excerpt?: string | null, date?: string | null, uri?: string | null, author?: { __typename?: 'NodeWithAuthorToUserConnectionEdge', node: { __typename?: 'User', name?: string | null } } | null, featuredImage?: { __typename?: 'NodeWithFeaturedImageToMediaItemConnectionEdge', node: { __typename?: 'MediaItem', sourceUrl?: string | null } } | null } | null> | null } | null, contactSection?: { __typename?: 'Page_Home_ContactSection', phoneNumber?: string | null, emailAddress?: string | null } | null } | null } | null, generalSettings?: { __typename?: 'GeneralSettings', title?: string | null, description?: string | null } | null, primaryMenuItems?: { __typename?: 'RootQueryToMenuItemConnection', nodes: Array<{ __typename?: 'MenuItem', id: string, uri?: string | null, path?: string | null, label?: string | null, parentId?: string | null, cssClasses?: Array<string | null> | null, menu?: { __typename?: 'MenuItemToMenuConnectionEdge', node: { __typename?: 'Menu', name?: string | null } } | null }> } | null };
+export type GetHomePageQuery = { __typename?: 'RootQuery', page?: { __typename?: 'Page', title?: string | null, content?: string | null, seo?: { __typename?: 'PostTypeSEO', fullHead?: string | null } | null, home?: { __typename?: 'Page_Home', heroSection?: { __typename?: 'Page_Home_HeroSection', body?: string | null, headingRepeater?: Array<{ __typename?: 'Page_Home_HeroSection_headingRepeater', text?: string | null, isAccented?: boolean | null } | null> | null, cta?: { __typename?: 'GraphqlDocument' } | { __typename?: 'MediaItem' } | { __typename?: 'Page', title?: string | null, uri?: string | null } | { __typename?: 'Post' } | null } | null, introSection?: { __typename?: 'Page_Home_IntroSection', heading?: string | null, body?: string | null, featuredList?: Array<{ __typename?: 'Page_Home_IntroSection_featuredList', heading?: string | null, body?: string | null, image?: { __typename?: 'MediaItem', sourceUrl?: string | null } | null } | null> | null } | null, testimonialsSection?: { __typename?: 'Page_Home_TestimonialsSection', heading?: string | null, body?: string | null, testimonialList?: Array<{ __typename?: 'Page_Home_TestimonialsSection_testimonialList', name?: string | null, quote?: string | null, location?: string | null } | null> | null } | null, ctaSection?: { __typename?: 'Page_Home_CtaSection', heading?: string | null, body?: string | null, link?: { __typename?: 'GraphqlDocument' } | { __typename?: 'MediaItem' } | { __typename?: 'Page', uri?: string | null, title?: string | null } | { __typename?: 'Post' } | null } | null, blogSection?: { __typename?: 'Page_Home_BlogSection', heading?: string | null, body?: string | null, featuredPosts?: Array<{ __typename?: 'GraphqlDocument' } | { __typename?: 'MediaItem' } | { __typename?: 'Page' } | { __typename?: 'Post', id: string, title?: string | null, excerpt?: string | null, date?: string | null, uri?: string | null, author?: { __typename?: 'NodeWithAuthorToUserConnectionEdge', node: { __typename?: 'User', name?: string | null } } | null, featuredImage?: { __typename?: 'NodeWithFeaturedImageToMediaItemConnectionEdge', node: { __typename?: 'MediaItem', sourceUrl?: string | null } } | null } | null> | null } | null, contactSection?: { __typename?: 'Page_Home_ContactSection', phoneNumber?: string | null, emailAddress?: string | null } | null } | null } | null, generalSettings?: { __typename?: 'GeneralSettings', title?: string | null, description?: string | null } | null, primaryMenuItems?: { __typename?: 'RootQueryToMenuItemConnection', nodes: Array<{ __typename?: 'MenuItem', id: string, uri?: string | null, path?: string | null, label?: string | null, parentId?: string | null, cssClasses?: Array<string | null> | null, menu?: { __typename?: 'MenuItemToMenuConnectionEdge', node: { __typename?: 'Menu', name?: string | null } } | null }> } | null };
 
 export type GetPageQueryVariables = Exact<{
   databaseId: Scalars['ID'];

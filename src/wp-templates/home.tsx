@@ -14,6 +14,7 @@ import {
   Footer,
   Header,
   Modal,
+  RawHtml,
   YoutubeEmbed,
 } from '@/components';
 
@@ -86,7 +87,9 @@ const Template: FaustTemplate<GetHomePageQuery> = (props) => {
 
   return (
     <>
-      <Head>{}</Head>
+      <Head>
+        <RawHtml html={fullHead} />
+      </Head>
 
       <Header menuItems={menuItems} />
 
