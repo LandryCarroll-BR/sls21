@@ -1,9 +1,7 @@
 import { gql } from '@/__generated__';
 import { GetPostQuery } from '@/__generated__/graphql';
 import { FaustTemplate } from '@faustwp/core';
-import { Header, Footer, RawHtml } from '@/components';
-
-import Head from 'next/head';
+import { Header, Footer, RawHtml, SiteHead } from '@/components';
 
 const Template: FaustTemplate<GetPostQuery> = (props) => {
   // Loading state for previews
@@ -19,9 +17,9 @@ const Template: FaustTemplate<GetPostQuery> = (props) => {
 
   return (
     <>
-      <Head>
+      <SiteHead>
         <RawHtml html={fullHead} />
-      </Head>
+      </SiteHead>
 
       <Header menuItems={menuItems} />
 

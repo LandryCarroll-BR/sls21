@@ -15,6 +15,7 @@ import {
   Header,
   Modal,
   RawHtml,
+  SiteHead,
   YoutubeEmbed,
 } from '@/components';
 
@@ -85,13 +86,11 @@ const Template: FaustTemplate<GetHomePageQuery> = (props) => {
     contactSection,
   } = props.data.page.home;
 
-  console.log(heroSection);
-
   return (
     <>
-      <Head>
+      <SiteHead>
         <RawHtml html={fullHead} />
-      </Head>
+      </SiteHead>
 
       <Header menuItems={menuItems} />
 

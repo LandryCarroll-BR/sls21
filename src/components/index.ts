@@ -6,6 +6,7 @@ import { Label } from './label/label';
 import { Modal } from './modal/modal';
 import { RadioGroup, RadioGroupItem } from './radio-group/radio-group';
 import { RawHtml } from './raw-html/raw-html';
+import { SiteHead } from './site-head/site-head';
 import { SvgSpinner } from './svg-spinner/svg-spinner';
 import { Textarea } from './textarea/textarea';
 import { YoutubeEmbed } from './youtube-embed/youtube-embed';
@@ -49,6 +50,7 @@ export {
   RadioGroup,
   RadioGroupItem,
   RawHtml,
+  SiteHead,
   SvgSpinner,
   Textarea,
   useFormField,

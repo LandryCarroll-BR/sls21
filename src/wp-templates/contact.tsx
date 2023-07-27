@@ -4,6 +4,9 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { motion } from 'framer-motion';
+import { gql } from '@/__generated__';
+import { gql as apolloGql, useMutation } from '@apollo/client';
+import { useState } from 'react';
 
 import {
   Button,
@@ -18,17 +21,14 @@ import {
   RadioGroup,
   RadioGroupItem,
   RawHtml,
+  SiteHead,
   SvgSpinner,
   Textarea,
 } from '@/components';
 
 import backgroundImage from '@/images/background-features.jpg';
-import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
-import { gql } from '@/__generated__';
-import { gql as apolloGql, useMutation } from '@apollo/client';
-import { useState } from 'react';
 
 const SUBMIT_FORM = apolloGql`
   mutation SubmitForm($databaseId: ID!, $fieldValues: [FormFieldValuesInput]!) {
@@ -136,9 +136,9 @@ const Template: FaustTemplate<GetContactPageQuery> = (props) => {
 
   return (
     <>
-      <Head>
+      <SiteHead>
         <RawHtml html={fullHead} />
-      </Head>
+      </SiteHead>
 
       <div className="relative flex min-h-screen justify-center md:px-12 lg:px-0">
         <div className="relative z-10 flex flex-1 flex-col bg-white px-4 py-10 md:flex-none md:px-28 lg:justify-center">
