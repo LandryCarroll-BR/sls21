@@ -23,6 +23,31 @@ import backgroundImage from '@/images/background-features.jpg';
 import Head from 'next/head';
 import Image from 'next/image';
 
+interface heroHeading extends React.HTMLAttributes<HTMLHeadingElement> {
+  isAccented: boolean;
+  text: string;
+}
+
+const HeroHeading: React.FC<heroHeading> = ({ isAccented, text }) => {
+  if (isAccented) {
+    return (
+      <span className="relative whitespace-nowrap text-blue-600">
+        <svg
+          aria-hidden="true"
+          viewBox="0 0 418 42"
+          className="absolute left-0 top-2/3 h-[0.58em] w-full fill-blue-200"
+          preserveAspectRatio="none"
+        >
+          <path d="M203.371.916c-26.013-2.078-76.686 1.963-124.73 9.946L67.3 12.749C35.421 18.062 18.2 21.766 6.004 25.934 1.244 27.561.828 27.778.874 28.61c.07 1.214.828 1.121 9.595-1.176 9.072-2.377 17.15-3.92 39.246-7.496C123.565 7.986 157.869 4.492 195.942 5.046c7.461.108 19.25 1.696 19.17 2.582-.107 1.183-7.874 4.31-25.75 10.366-21.992 7.45-35.43 12.534-36.701 13.884-2.173 2.308-.202 4.407 4.442 4.734 2.654.187 3.263.157 15.593-.78 35.401-2.686 57.944-3.488 88.365-3.143 46.327.526 75.721 2.23 130.788 7.584 19.787 1.924 20.814 1.98 24.557 1.332l.066-.011c1.201-.203 1.53-1.825.399-2.335-2.911-1.31-4.893-1.604-22.048-3.261-57.509-5.556-87.871-7.36-132.059-7.842-23.239-.254-33.617-.116-50.627.674-11.629.54-42.371 2.494-46.696 2.967-2.359.259 8.133-3.625 26.504-9.81 23.239-7.825 27.934-10.149 28.304-14.005.417-4.348-3.529-6-16.878-7.066Z" />
+        </svg>
+        <span className="relative">{text} </span>
+      </span>
+    );
+  } else {
+    return <span className="text-slate-900">{text} </span>;
+  }
+};
+
 const Template: FaustTemplate<GetHomePageQuery> = (props) => {
   const [showVideoModal, setShowVideoModal] = useState(false);
   let [tabOrientation, setTabOrientation] = useState('horizontal');
@@ -30,7 +55,7 @@ const Template: FaustTemplate<GetHomePageQuery> = (props) => {
   useEffect(() => {
     let lgMediaQuery = window.matchMedia('(min-width: 1024px)');
 
-    function onMediaQueryChange({ matches }: any) {
+    function onMediaQueryChange({ matches }: MediaQueryListEventInit) {
       setTabOrientation(matches ? 'vertical' : 'horizontal');
     }
 
@@ -60,30 +85,7 @@ const Template: FaustTemplate<GetHomePageQuery> = (props) => {
     contactSection,
   } = props.data.page.home;
 
-  interface heroHeading extends React.HTMLAttributes<HTMLHeadingElement> {
-    isAccented: boolean;
-    text: string;
-  }
-
-  const HeroHeading: React.FC<heroHeading> = ({ isAccented, text }) => {
-    if (isAccented) {
-      return (
-        <span className="relative whitespace-nowrap text-blue-600">
-          <svg
-            aria-hidden="true"
-            viewBox="0 0 418 42"
-            className="absolute left-0 top-2/3 h-[0.58em] w-full fill-blue-200"
-            preserveAspectRatio="none"
-          >
-            <path d="M203.371.916c-26.013-2.078-76.686 1.963-124.73 9.946L67.3 12.749C35.421 18.062 18.2 21.766 6.004 25.934 1.244 27.561.828 27.778.874 28.61c.07 1.214.828 1.121 9.595-1.176 9.072-2.377 17.15-3.92 39.246-7.496C123.565 7.986 157.869 4.492 195.942 5.046c7.461.108 19.25 1.696 19.17 2.582-.107 1.183-7.874 4.31-25.75 10.366-21.992 7.45-35.43 12.534-36.701 13.884-2.173 2.308-.202 4.407 4.442 4.734 2.654.187 3.263.157 15.593-.78 35.401-2.686 57.944-3.488 88.365-3.143 46.327.526 75.721 2.23 130.788 7.584 19.787 1.924 20.814 1.98 24.557 1.332l.066-.011c1.201-.203 1.53-1.825.399-2.335-2.911-1.31-4.893-1.604-22.048-3.261-57.509-5.556-87.871-7.36-132.059-7.842-23.239-.254-33.617-.116-50.627.674-11.629.54-42.371 2.494-46.696 2.967-2.359.259 8.133-3.625 26.504-9.81 23.239-7.825 27.934-10.149 28.304-14.005.417-4.348-3.529-6-16.878-7.066Z" />
-          </svg>
-          <span className="relative">{text} </span>
-        </span>
-      );
-    } else {
-      return <span className="text-slate-900">{text} </span>;
-    }
-  };
+  console.log(heroSection);
 
   return (
     <>
@@ -98,18 +100,18 @@ const Template: FaustTemplate<GetHomePageQuery> = (props) => {
         <section className="relative border-b-2 border-blue-100">
           <Container className="relative z-30 mx-auto pb-36 pt-28">
             <h1 className="font-display mx-auto max-w-4xl justify-center text-center text-5xl font-medium tracking-tight sm:text-7xl">
-              {heroSection.headingRepeater.map((content, index) => (
+              {heroSection.headingRepeater?.map((content, index) => (
                 <HeroHeading key={index} isAccented={content.isAccented} text={content.text} />
               ))}
             </h1>
 
             <p className="mx-auto mt-6 max-w-2xl text-center text-lg tracking-tight text-slate-900">
-              {heroSection.body}
+              {heroSection?.body}
             </p>
 
             <div className="mt-10 flex justify-center space-x-6">
-              <ButtonLink className="" href="mailto: john@sls21.com">
-                Schedule a call
+              <ButtonLink className="" href={heroSection.cta?.url}>
+                {heroSection.cta?.title}
               </ButtonLink>
               <Button className="" onClick={() => setShowVideoModal(true)} variant="outline">
                 <svg
@@ -319,8 +321,8 @@ const Template: FaustTemplate<GetHomePageQuery> = (props) => {
                 {ctaSection.heading}
               </h2>
               <p className="mt-4 text-lg tracking-tight text-white">{ctaSection.body}</p>
-              <ButtonLink href="mailto: john@sls21.com" color="white" className="mr-6 mt-10">
-                Contact Us
+              <ButtonLink href={ctaSection.link?.url} color="white" className="mt-10">
+                {ctaSection.link?.title}
               </ButtonLink>
               {/* <ButtonLink href="/register" color="white" className="mt-10">
             Download Free E-Book
@@ -421,10 +423,8 @@ Template.query = gql(`
           }
           body
           cta {
-            ... on Page {
-              title
-              uri
-            }
+            title
+            url
           }
         }
         introSection {
@@ -451,10 +451,8 @@ Template.query = gql(`
           heading
           body
           link {
-            ... on Page {
-              uri
-              title
-            }
+            title
+            url
           }
         }
         blogSection {

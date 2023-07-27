@@ -85,8 +85,8 @@ export default function Header({ menuItems }: HeaderProps) {
     <header className="relative z-50 py-10">
       <div className="container">
         <nav className="relative z-50 text-sm">
-          <ul className="flex items-center">
-            <li>
+          <ul className="flex">
+            <li className="mr-auto">
               <Link href="/">
                 <span className="sr-only">Home</span>
                 <Logo className="h-10 w-auto" />
