@@ -22,7 +22,7 @@ const Template: FaustTemplate<GetPageQuery> = (props) => {
 
       <Header menuItems={menuItems} />
 
-      <main className="prose">
+      <main className="px-16">
         <div className="prose" dangerouslySetInnerHTML={{ __html: content }} />
       </main>
 
