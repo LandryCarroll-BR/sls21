@@ -293,7 +293,13 @@ const Template: FaustTemplate<GetHomePageQuery> = (props) => {
                       </div>
                       {testimonial.image?.sourceUrl ? (
                         <div className="relative h-14 w-14 overflow-hidden rounded-full bg-slate-50">
-                          <Image src={testimonial.image?.sourceUrl} alt="" width={48} height={48} />
+                          <Image
+                            src={testimonial.image?.sourceUrl}
+                            alt=""
+                            width={100}
+                            height={100}
+                            className="object-cover"
+                          />
                         </div>
                       ) : (
                         ''
