@@ -57,7 +57,7 @@ const FormSchema = z.object({
     .regex(/^([+]?[\s0-9]+)?(\d{3}|[(]?[0-9]+[)])?([-]?[\s]?[0-9])+$/, 'Invalid number'),
   occupation: z.string().max(40, 'Must be shorter than 40 characterss'),
   retirementStatus: z.string().max(30, 'Must be shorter than 30 characters'),
-  yearsToRetirement: z.string().max(3, 'Invalid age'),
+  yearsToRetirement: z.string().max(3, 'Invalid age').nullish(),
   questions: z.string().max(120, 'Must be shorter than 120 characters'),
 });
 
