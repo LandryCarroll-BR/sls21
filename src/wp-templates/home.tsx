@@ -21,7 +21,6 @@ import {
 
 import MailIcon from '@heroicons/react/24/outline/EnvelopeIcon';
 import backgroundImage from '@/images/background-features.jpg';
-import Head from 'next/head';
 import Image from 'next/image';
 
 interface heroHeading extends React.HTMLAttributes<HTMLHeadingElement> {
@@ -292,9 +291,13 @@ const Template: FaustTemplate<GetHomePageQuery> = (props) => {
                         </div>
                         <div className="mt-1 text-sm text-slate-500">{testimonial.location}</div>
                       </div>
-                      {/* <div className="relative h-14 w-14 overflow-hidden rounded-full bg-slate-50">
-                        <Image />
-                      </div> */}
+                      {testimonial.image?.sourceUrl ? (
+                        <div className="relative h-14 w-14 overflow-hidden rounded-full bg-slate-50">
+                          <Image src={testimonial.image?.sourceUrl} alt="" width={48} height={48} />
+                        </div>
+                      ) : (
+                        ''
+                      )}
                     </figcaption>
                   </figure>
                 </li>
@@ -444,6 +447,9 @@ Template.query = gql(`
             name
             quote
             location
+            image {
+              sourceUrl
+            }
           }
         }
         ctaSection {
