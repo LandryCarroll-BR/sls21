@@ -1,10 +1,13 @@
 import Head from 'next/head';
 import Script from 'next/script';
+import { RawHtml } from '../raw-html/raw-html';
 
-export function SiteHead({ children }: any) {
+export function SiteHead({ children }: { children: string }) {
   return (
     <>
-      <Head>{children}</Head>
+      <Head>
+        <RawHtml html={children} />
+      </Head>
       <Script src="https://www.googletagmanager.com/gtag/js?id=G-DVHXW75DC3" />
       <Script id="google-analytics">
         {`
