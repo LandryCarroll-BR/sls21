@@ -2,7 +2,7 @@ import Head from 'next/head';
 import Script from 'next/script';
 import { RawHtml } from '../raw-html/raw-html';
 
-export function SiteHead({ children }: { children: string }) {
+export function SiteHead({ children }: { children: any }) {
   return (
     <>
       <Head>
