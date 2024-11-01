@@ -15,6 +15,12 @@ module.exports = withFaust({
         port: '',
         pathname: '/wp-content/uploads/**/*',
       },
+      {
+        protocol: 'https',
+        hostname: 'sls21.com',
+        port: '',
+        pathname: '/wp-content/uploads/**/*',
+      },
     ],
   },
 });
